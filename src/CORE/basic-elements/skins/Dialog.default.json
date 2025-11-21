@@ -1,0 +1,15 @@
+{
+    "dialog": {
+      "background": {
+        "type": "image",
+        "src": "bubbles/default.png",
+        "srcFlip": "bubbles/default_flip.png"
+      },
+      "padding": "32px",
+      "borderRadius": "24px",
+      "shadow": "0 10px 30px rgba(0,0,0,0.25)",
+      "textColor": "#222",
+      "titleColor": "#000",
+      "fontFamily": "Inter"
+    }
+  }

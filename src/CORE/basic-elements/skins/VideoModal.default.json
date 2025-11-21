@@ -1,0 +1,10 @@
+{
+    "default": {
+      "overlay": "fixed inset-0 bg-black/70 flex items-center justify-center z-50",
+      "container": "relative w-[90%] max-w-7xl aspect-video bg-black rounded-lg overflow-hidden",
+      "video": "w-full h-full rounded-lg",
+      "iframe": "w-full h-full rounded-lg",
+      "closeButton": "absolute cursor-pointer -top-4 -right-4 text-white bg-brand-dark-blue px-4 py-3 rounded-full"
+    }
+  }
+  
