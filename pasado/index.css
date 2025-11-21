@@ -1,0 +1,340 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "HelveticaNeueThin";
+  src: url("/fonts/HelveticaNeueThin.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "HelveticaNeueCondensed";
+  src: url("/fonts/HelveticaNeue-Condensed.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@theme {
+  --font-helvetica: "HelveticaNeueThin", sans-serif;
+  --font-helvetica-condensed: "HelveticaNeueCondensed", sans-serif;
+  --color-brand-blue: hsl(214, 100%, 50%);
+  --color-brand-light-blue: hsl(198, 100%, 50%);
+  --color-brand-dark-blue: hsl(215, 83.53%, 16.67%);
+}
+
+body {
+  font-family: var(--font-helvetica);
+  color: #07254e;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-helvetica-condensed);
+}
+
+.button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 2.5rem;
+  padding-right: 1rem;
+  border-radius: 100px;
+  background: linear-gradient(45deg, #006bff, #00b3ff);
+  background-size: 200% 100%;
+  color: #fff;
+  font-family: var(--font-helvetica-condensed);
+  font-size: 2.5rem;
+  font-weight: bold;
+  transition: background-position 0.4s ease, transform 0.2s ease;
+}
+
+button.button.disabled,
+button.button:disabled {
+  background: linear-gradient(45deg, #999, #bbb);
+  background-size: 200% 100%;
+  color: #eee;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.button.icon {
+  padding: 0.5rem;
+  background: transparent;
+}
+.button.icon.color {
+  padding: 0.2rem;
+  background: linear-gradient(45deg, #006bff, #00b3ff);
+}
+.button:hover {
+  background-position: right center;
+  transform: scale(1.05);
+}
+.button__span {
+  background-color: white;
+  color: #07254e;
+  border-radius: 100%;
+  padding: 1rem;
+}
+
+.button__icon {
+  width: 2rem;
+  height: 2rem;
+  fill: currentColor;
+  transform: rotate(270deg);
+}
+
+.button.small {
+  font-size: 1rem;
+  padding: 0.3rem 1rem;
+  padding-right: 0.4rem;
+}
+
+.button.small .button__icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.button.ghost {
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+}
+.button.ghost .button__icon {
+  fill: currentColor;
+  transform: rotate(90deg);
+}
+
+.button.ghost .button__span {
+  background: rgba(255, 255, 255, 0.5);
+}
+.button.ghost:hover {
+  color: rgba(255, 255, 255, 1);
+}
+.button.ghost:hover .button__span {
+  background: rgba(255, 255, 255, 1);
+}
+
+.comentario {
+  position: relative;
+  background: url("/chats/comentario.png") no-repeat center;
+  background-size: 100% 100%;
+  padding-top: 64px;
+  padding-right: 64px;
+  padding-bottom: 32px;
+  padding-left: 84px;
+  max-width: 900px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.comentario h1,
+.comentario p {
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  text-align: left;
+}
+.comentario h1 {
+  font-size: 3.2rem;
+  margin-bottom: 0.6rem;
+  font-weight: bold;
+}
+.comentario p {
+  font-weight: bold;
+  font-size: 2.2rem;
+  line-height: 1.4;
+} /* Bloque de “ver video” */
+.comentario .video {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.comentario span {
+  font-weight: bold;
+  font-size: 2rem;
+}
+.comentario .icon {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.menu {
+  display: flex;
+  gap: 2rem;
+}
+.card {
+  max-width: 400px;
+  min-height: 400px;
+  color: white;
+  cursor: pointer;
+}
+.card p {
+  max-width: 350px;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 1.7rem;
+  line-height: 1.2;
+  margin-top: 1rem;
+}
+
+.card strong {
+  font-family: var(--font-helvetica-condensed);
+}
+
+.card__image {
+  max-width: 400px;
+  object-fit: contain;
+  position: relative;
+}
+.card__image-button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.card__image-lock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.inactive {
+  filter: grayscale(100%);
+}
+.dialog-flipped {
+  transform: scaleX(-1);
+}
+
+.dialog-inner-flip {
+  transform: scaleX(-1);
+}
+
+/* ==========================
+   BASE GENERAL
+========================== */
+.base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-inline: 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* ==========================
+     TOP Y BOTTOM
+  ========================== */
+.base__top {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+
+.base__bottom {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+.slide-in-left {
+  -webkit-animation: slide-in-left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: slide-in-left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.base__logo {
+  position: fixed;
+  bottom: 50px;
+  z-index: 20;
+}
+/* ==========================
+     ELEMENTOS INTERNOS
+  ========================== */
+.base__logo-top {
+  width: 75px;
+}
+
+.base__icon-top {
+  width: 65px;
+}
+
+.base__logo {
+  max-width: 700px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.base__hint {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 32px;
+  font-style: italic;
+}
+
+/* ==========================
+     REVEAL BORDER (solo en montaje)
+  ========================== */
+.reveal-border {
+  /* position: relative;*/
+  border-bottom: 2px solid transparent;
+  overflow: hidden;
+}
+
+.reveal-border::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  transform: scaleX(0);
+  transform-origin: right;
+  animation: borderReveal 1.2s ease-out forwards;
+}
+
+@keyframes borderReveal {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
