@@ -114,10 +114,11 @@ scene:
             Electro Conexiones del Bajío S. A. de C. V.
           className: "text-xl text-gray-400 italic leading-none"
 
-        - type: "icon_button"
-          label: "Iniciar conversación"
+        - type: "button"
+          variant: "primary"
+          text: "Iniciar conversación"
           top: 850
-          right: 300
+          right: 320
           action:
             - "play_sound:next"
             - "next_slide"
@@ -201,13 +202,13 @@ scene:
             Hola, justo iba a contactarte.
             A continuación te comparto algunos recursos que te serán de gran ayuda
             para avanzar con la segmentación internacional
-          className: "text-3xl bg-brand-dark-blue text-white px-16 py-4 rounded-4xl"
+          className: "bubble"
           delay: 2
 
         - type: "group"
           top: 345
           left: 220
-          className: "text-3xl bg-brand-dark-blue text-white px-16 py-4 rounded-4xl"
+          className: "bubble"
           delay: 3
           elements:
             - type: "text"
@@ -223,7 +224,7 @@ scene:
           top: 455
           left: 220
           delay: 4
-          className: "text-3xl bg-brand-dark-blue text-white px-16 py-4 rounded-4xl"
+          className: "bubble"
           elements:
             - type: "text"
               position: "relative"
@@ -241,7 +242,7 @@ scene:
           width: 1500
           delay: 5
           content: "También quiero comentarte que el Comité de Estrategia Internacional ha preparado fichas básicas de segmentación para Estados Unidos, Canadá, China y Corea del Sur. Estas fichas incluyen campos para todas las variables B2B (demográficas, operativas y de compra). Deberás completarlas con la información que extraigas de fuentes confiables y portales de promoción comercial."
-          className: "text-3xl bg-brand-dark-blue text-white px-16 py-4 rounded-4xl"
+          className: "bubble"
 
         - type: "link"
           top: 760
@@ -249,7 +250,7 @@ scene:
           text: "Abrir documento"
           href: "https://docs.google.com/document/d/15gjgxNHi5sT8dnNGxvN_bcFes5ukBSew/edit"
           delay: 6
-          className: "underline text-3xl bg-brand-dark-blue text-brand-light-blue px-16 py-4 rounded-r-4xl rounded-tl-4xl"
+          className: "last-bubble"
 
         - type: "image"
           src: "chica_azul"
@@ -265,8 +266,9 @@ scene:
           height: 70
           className: "object-contain"
 
-        - type: "icon_button"
-          label: "Continuar"
+        - type: "button"
+          variant: "primary"
+          text: "Continuar"
           top: 960
           right: 120
           delay: 8
@@ -334,8 +336,9 @@ scene:
               visible: false
 
         - id: "boton_TAREA_APP_1"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:
@@ -380,8 +383,9 @@ scene:
               action: "audio_finished"
 
         - id: "audio_siguiente"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:
@@ -423,8 +427,9 @@ scene:
           width: 850
 
         - id: "btnNext2"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 650
           right: 250
           action:
@@ -483,8 +488,9 @@ scene:
           visible: false
 
         - id: "boton_TAREA_APP_2"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:
@@ -505,8 +511,9 @@ scene:
           content: |
             La primera fase ha llegado a su fin, el comité ha recibido tu análisis completo.
           className: "text-5xl text-white text-center font-helvetica-condensed leading-[1.2] max-w-5xl"
-        - type: "icon_button"
-          label: ""
+        - type: "button"
+          variant: "primary"
+          text: ""
           top: 300
           left: 900
           action:
@@ -527,8 +534,9 @@ scene:
           content: |
             La primera fase ha llegado a su fin, el comité ha recibido tu análisis completo.
           className: "text-5xl text-white text-center font-helvetica-condensed leading-[1.2] max-w-5xl"
-        - type: "icon_button"
-          label: ""
+        - type: "button"
+          variant: "primary"
+          text: ""
           top: 300
           left: 900
           action:
@@ -549,8 +557,9 @@ scene:
           width: 200
           className: "object-contain"
 
-        - type: "icon_button"
-          label: "Siguiente"
+        - type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:

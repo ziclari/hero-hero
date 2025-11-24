@@ -81,7 +81,6 @@ const Button = React.forwardRef(
             backgroundPosition: 'center'
           }
         : {};
-      console.log(props)
     return (
       <AriaButton
         {...props}

@@ -75,10 +75,12 @@ scene:
           width: 850
 
         - id: "btnNext1"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 750
           right: 250
+          delay: 0.8
           visible: false
           animate: ["slideUp", "heartbeat"]
           action:
@@ -99,6 +101,7 @@ scene:
 
     videos:
       intro_video:
+        id: "intro_video"
         src: "https://drive.google.com/file/d/1njT2ahgiNQZcBShLZPcBndnYPztK-JEl/preview"
 
     audios:

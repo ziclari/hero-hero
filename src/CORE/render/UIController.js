@@ -1,7 +1,7 @@
 // CORE/render/UIController.js
 import { stateManager } from "../managers/stateManager";
 import { submitAssignment } from "../external-services/moodle-service/moodleService";
-
+import { emitEvent } from "../events/eventBus";
 export const UIController = {
 
     // ---------------------------------------
@@ -137,7 +137,7 @@ export const UIController = {
                 case "upload_file": await this.uploadFile(a); break;
 
                 case "mark_complete": this.markComplete(arg); break;
-
+                case "end": emitEvent(`end:${arg}`); break;
                 default:
                     console.warn("Acción no reconocida:", a);
             }
