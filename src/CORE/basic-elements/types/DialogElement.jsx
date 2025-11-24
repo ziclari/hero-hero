@@ -8,45 +8,34 @@ export default function DialogElement({
   onAction,
   className,
   flip = false,
-  skin = {}
 }) {
-  const dialogSkin = skin.dialog || {};
-  const background = dialogSkin.background || {};
-
-  const isImage = background.type === "image";
-  const bgImage = flip && background.srcFlip ? background.srcFlip : background.src;
-
-  const style = {
-    padding: dialogSkin.padding || "20px",
-    borderRadius: dialogSkin.borderRadius || "20px",
-    boxShadow: dialogSkin.shadow || "none",
-    color: dialogSkin.textColor || "inherit",
-    fontFamily: dialogSkin.fontFamily || "inherit",
-    backgroundColor: background.type === "color" ? background.value : undefined,
-    backgroundImage: isImage && bgImage ? `url(${bgImage})` : undefined,
-    backgroundSize: isImage ? "100% 100%" : undefined,
-    backgroundRepeat: "no-repeat"
-  };
+  const classes = [
+    "dialog",             // clase base del diálogo
+    "dialog-anim",        // animación base (fade-in, slide, etc.)
+    flip ? "dialog-flip" : "",
+    className
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div
-      className={`dialog-container fade-in-bottom ${className || ""} ${
-        flip ? "dialog-flipped" : ""
-      }`}
-      style={style}
-    >
-      <h1 style={{ color: dialogSkin.titleColor || "inherit" }}>{title}</h1>
+    <div className={classes}>
+      {title && <h1 className="dialog-title">{title}</h1>}
 
-      <p style={{ whiteSpace: "pre-line" }}>{text}</p>
+      {text && <p className="dialog-text">{text}</p>}
 
       {button && (
-        <div className="video" onClick={() => onAction?.(button.action)}>
-          <span>{button.label}</span>
+        <div
+          className="dialog-button"
+          onClick={() => onAction?.(button.action)}
+        >
+          <span className="dialog-button-label">{button.label}</span>
+
           <MotionWrapper animate={button.animate} delay={button.delay}>
             <img
               src={button.icon}
-              alt="Ícono de video"
-              className="icon clickable"
+              alt=""
+              className="dialog-button-icon"
             />
           </MotionWrapper>
         </div>

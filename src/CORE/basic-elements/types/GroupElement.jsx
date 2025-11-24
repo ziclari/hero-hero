@@ -8,22 +8,23 @@ export default function GroupElement({
   background,
   action,
   onAction,
-  className,
-  skin // ← añadido para usar JSON skins
+  className
 }) {
-  const s = skin || {};
-
-  const finalClass = `${className || ""} ${s.className || ""}`.trim();
+  const classes = [
+    "group",          // Clase base estándar para grupos
+    "group-bg",       // Clase para fondos (bg-cover, etc.)
+    className
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div
-      className={`${finalClass} bg-cover bg-center`}
+      className={classes}
       style={{
-        backgroundImage: background ? `url(${background})` : "",
-        ...(s.style || {}) // json plano
+        backgroundImage: background ? `url(${background})` : ""
       }}
       onClick={() => onAction?.(action)}
-      {...(s.wrapperProps || {})}
     >
       {elements.map((child, i) => {
         const isVisible =
@@ -43,8 +44,8 @@ export default function GroupElement({
             <Element
               key={child.id || i}
               {...child}
-              skin={child.skinObject} 
               assets={assets}
+              // resolución automática de paths
               src={assets?.[child.src] || child.src}
               img={assets?.[child.img] || child.img}
               icon={assets?.[child.icon] || child.icon}

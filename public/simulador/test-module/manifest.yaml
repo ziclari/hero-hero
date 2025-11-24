@@ -9,4 +9,4 @@ meta:
 
 scenes:
   - id: intro
-    file: buttons.yaml
+    file: dialog.yaml

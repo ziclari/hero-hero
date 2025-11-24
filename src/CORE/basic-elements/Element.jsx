@@ -1,31 +1,30 @@
 import React from "react";
-import AudioElement from "./types/AudioElement";
-import ButtonElement from "./types/ButtonElement";
-import FileUploadElement from "./types/FileUploadElement";
-import GroupElement from "./types/GroupElement";
-import ImageElement from "./types/ImageElement";
-import LinkElement from "./types/LinkElement";
-import TextElement from "./types/TextElement";
-import DialogElement from "./types/DialogElement";
-import CardElement from "./types/CardElement";
-import ModalElement from "./types/ModalElement";
-import MenuInteractiveElement from "./types/MenuInteractiveElement";
 import Button from "./types/AriaButton";
 import Link from "./types/AriaLink";
+import AudioElement from "./types/AudioElement";
+import ImageElement from "./types/ImageElement";
+import TextElement from "./types/TextElement";
+import CardElement from "./types/CardElement";
+
+import FileUploadElement from "./types/FileUploadElement";
+import GroupElement from "./types/GroupElement";
+import DialogElement from "./types/DialogElement";
+import ModalElement from "./types/ModalElement";
+import MenuInteractiveElement from "./types/MenuInteractiveElement";
+
 
 const typeMap = {
   button: Button,
   link: Link,
   audio: AudioElement,
-  icon_button: ButtonElement,
-  fileupload: FileUploadElement,
-  group: GroupElement,
   image: ImageElement,
-  link: LinkElement,
   text: TextElement,
-  dialog: DialogElement,
   card: CardElement,
+  dialog: DialogElement,
+  group: GroupElement,
   modal: ModalElement,
+
+  fileupload: FileUploadElement,
   menuInteractive: MenuInteractiveElement,
 };
 

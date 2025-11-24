@@ -1,0 +1,92 @@
+scene:
+  background: "test-back"
+
+  slides:
+  
+    - id: intro_1
+      elements:
+        - id: "hud_global"
+          type: "menuInteractive"
+          className: "hud-theme-default"
+
+          # Opcional: overrides de visibilidad por escena o condición
+          visibility:
+            top: true
+            bottom: true
+            left: true
+            right: true
+
+          # Slots del HUD
+          layout:
+            top:
+              - type: "button"
+                icon: "/interactivos/menu.png"
+                alt: "Menú principal"
+                className: "hud-btn hud-btn-main"
+                action: "goto_scene:menu"
+
+              - type: "image"
+                src: "/logos/ebc_logo.png"
+                alt: "Logo superior EBC"
+                className: "hud-logo hud-logo-top"
+
+            bottom:
+              - type: "image"
+                src: "/logos/electro.png"
+                alt: "Logo inferior Electro"
+                className: "hud-logo hud-logo-bottom reveal-border"
+
+            left:
+              - type: "text"
+                content: "Panel lateral"
+                className: "hud-text-left"
+
+            right:
+              - type: "button"
+                icon: "/ui/help.png"
+                alt: "Ayuda"
+                className: "hud-btn hud-btn-help"
+                action: "open_help"
+
+            floating:
+              - type: "image"
+                src: "/ui/indicator.png"
+                alt: "Indicador flotante"
+                className: "hud-floating-item"
+
+        - id: "dialog_intro"
+          type: "dialog"  
+          title: "Bienvenido agente"
+          text: "Tienes una nueva misión.\nPrepárate."
+          button:
+            label: "Continuar"
+            action: "GO_NEXT"
+            icon: "/assets/ui/continue.png"
+            animate: true
+            delay: 150
+          flip: false
+          className: "dialog-theme-dark"
+
+        - id: "dialog_intro"
+          type: "dialog"
+          title: "Bienvenido agente"
+          text: "Tienes una nueva misión.\nPrepárate."
+          button:
+            label: "Continuar"
+            action: "GO_NEXT"
+            icon: "/assets/ui/continue.png"
+            animate: true
+            delay: 150
+          flip: false
+          left: 300
+        
+        - type: GroupElement
+          className: "group-dark"
+
+
+
+  assets:
+    images:
+      test-back:
+        src: "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95d2b9dfb.png"
+      

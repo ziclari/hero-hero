@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { Icon } from "@iconify/react";
 import { getPath } from "../../config-parser/getPath";
+import Button from "./AriaButton";
+
 export default function CardElement({
   id,
   img,
@@ -11,7 +13,6 @@ export default function CardElement({
   onAction,
   className,
 }) {
-  // Recupera el estado de assignments del sessionStorage
   const assignments = useMemo(() => {
     try {
       return JSON.parse(sessionStorage.getItem("assignments") || "[]");
@@ -20,52 +21,51 @@ export default function CardElement({
     }
   }, []);
 
-  // Verifica si una tarea o fase está marcada como completada
   const isCompleted = (key) => {
     const found = assignments.find((a) => a.name === key);
     return found?.submissionstatus === "submitted";
   };
 
-  // Desbloqueo dinámico: todos los requeridos deben estar completos
   const unlocked = requires.every((r) => isCompleted(r));
 
   const handleClick = () => {
     if (unlocked && onAction) onAction(action);
   };
 
+  // -------------------------------
+  // 1. Variantes completas de estilos
+  // -------------------------------
+  const variantClass = unlocked ? "card--unlocked" : "card--locked";
+
   return (
-    <div
-      className={`card ${className || ""} ${
-        unlocked ? "cursor-pointer clickable" : "opacity-50 cursor-not-allowed"
-      }`}
+    <Button
+      className={`card ${variantClass} ${className || ""}`}
       onClick={handleClick}
+      isDisabled={!unlocked}
     >
-      <div className="relative">
+      <div className="card__media">
         <img
           src={getPath(img)}
           alt={title}
-          className={`card__image fade-in-left ${unlocked ? "" : "grayscale"}`}
+          className="card__image"
         />
 
-        {unlocked ? (
-          <span className="button icon color card__image-button">
-            <Icon icon="mdi:plus-circle-outline" width={48} height={48} />{" "}
+        {/* Botón de acción */}
+        <span className="card__action-icon">
+          <Icon icon="mdi:plus-circle-outline" width={48} height={48} />
+        </span>
+
+        {/* Lock solo si está bloqueado */}
+        {!unlocked && (
+          <span className="card__lock-icon">
+            <Icon icon="mdi:lock" width={32} height={32} />
           </span>
-        ) : (
-          <>
-            <span className="button icon color card__image-button">
-              <Icon icon="mdi:plus-circle-outline" width={48} height={48} />{" "}
-            </span>
-            <span className="card__image-lock">
-              <Icon icon="mdi:lock" width={32} height={32} />{" "}
-            </span>
-          </>
         )}
       </div>
 
-      <p className="mt-2 text-white text-lg text-center">
+      <p className="card__text">
         <strong>{title}</strong> {content}
       </p>
-    </div>
+    </Button>
   );
 }
