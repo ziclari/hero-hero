@@ -113,7 +113,7 @@ h5 {
   object-fit: contain;
 }
 
-.dialog-flipped {
+.dialog-flip {
   transform: scaleX(-1);
 }
 
@@ -364,3 +364,29 @@ h5 {
     opacity: 1;
   }
 }
+
+   /*
+   Variante de botones para audio
+   */
+   .button-audio {
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #222222;
+    width: 64px;
+    height: 64px;
+  }
+  .button-audio svg{
+    width: 48px;
+    height: 48px;
+  }
+  .button-audio[data-hovered] {
+    background: #e8e8e8;
+  }
+  
+  .button-audio[data-pressed] {
+    background: #d0d0d0;
+  }
+  
+  .button-audio[data-disabled] {
+    opacity: 0.5;
+  }

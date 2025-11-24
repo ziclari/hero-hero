@@ -60,8 +60,9 @@ scene:
             +52 462 123 4567 (ext. 203).
           className: "text-2xl text-gray-400 italic leading-none"
 
-        - type: "icon_button"
-          label: "Siguiente"
+        - type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 850
           right: 300
           action:
@@ -117,8 +118,9 @@ scene:
           visible: false
 
         - id: "boton_TAREA_APP_3"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text:  "Siguiente"
           top: 930
           right: 120
           action:
@@ -157,8 +159,9 @@ scene:
           flip: true
 
         - id: "btnNext3"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:
@@ -226,8 +229,9 @@ scene:
           visible: false
 
         - id: "boton_TAREA_APP_4"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:
@@ -270,8 +274,9 @@ scene:
               action: "audio_finished"
 
         - id: "fase_1_audio_siguiente"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text:  "Siguiente"
           top: 930
           right: 120
           action:
@@ -327,8 +332,9 @@ scene:
           visible: false
 
         - id: "boton_TAREA_APP_5"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:
@@ -352,8 +358,9 @@ scene:
           left: 300
           content: "Ahora cuentas con una propuesta de investigación integral que combina métodos cualitativos y cuantitativos adaptados al país seleccionado. Tus hallazgos serán la base para definir la estrategia de entrada real y preparar al equipo comercial para interactuar con los clientes industriales del país destino."
           className: "text-5xl text-center  max-w-7xl text-white font-helvetica-condensed leading-[1.2]"
-        - type: "icon_button"
-          label: "Siguiente"
+        - type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:
@@ -376,6 +383,7 @@ scene:
 
     videos:
       fase1_1_video:
+        id: "fase1_1_video"
         src: "https://drive.google.com/file/d/1jBXmLGzfcmbkHUSMFo4UompgHukTbgrk/preview"
 
     audios:

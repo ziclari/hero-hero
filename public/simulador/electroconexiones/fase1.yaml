@@ -377,7 +377,7 @@ scene:
             - type: "audio"
               position: "relative"
               src: "audios/audio1.mp3"
-              autoplay: false
+              autoplay: true
               loop: false
               className: "my-6 w-full max-w-xl"
               action: "audio_finished"
@@ -594,6 +594,7 @@ scene:
 
     videos:
       end_video:
+        id: "end_video"
         src: "https://drive.google.com/file/d/1yNf8u6wA8aLQhyp84NsVQ8odMxIy_u7g/preview"
 
     audios:

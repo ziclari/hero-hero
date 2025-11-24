@@ -33,8 +33,9 @@ scene:
         - id: "btnNext5"
           delay: 0.8
           animate: "slideUp"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 780
           right: 250
           action:
@@ -188,8 +189,9 @@ scene:
           className: "text-xl cursor-pointer text-right bg-gradient-to-r from-brand-blue/50 to-brand-light-blue/50 rounded-4xl p-4 border-r-4 border-brand-blue border-solid clickable"
           action: "show:modalCalendario"
 
-        - type: "icon_button"
-          label: "Siguiente"
+        - type: "button"
+          variant: "primary"
+          text:  "Siguiente"
           top: 960
           right: 120
           action:
@@ -248,8 +250,9 @@ scene:
           visible: false
 
         - id: "boton_TAREA_APP_6"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
           action:
@@ -274,8 +277,9 @@ scene:
           left: 700
           content: "¡Felicidades consultor!"
           className: "text-5xl text-center  max-w-7xl text-white font-helvetica-condensed leading-[1.2]"
-        - type: "icon_button"
-          label: "Siguiente"
+        - type: "button"
+          variant: "primary"
+          text:  "Siguiente"
           top: 930
           right: 120
           action:

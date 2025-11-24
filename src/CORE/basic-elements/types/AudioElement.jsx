@@ -60,6 +60,7 @@ export default function AudioElement({
   const togglePlay = () => {
     waveSurferRef.current.playPause();
     setIsPlaying(waveSurferRef.current.isPlaying());
+    console.log("hola")
   };
 
   return (

@@ -20,6 +20,8 @@ export default function DialogElement({
 
   return (
     <div className={classes}>
+      <div className={flip ? "dialog-inner-flip" : ""}>
+       
       {title && <h1 className="dialog-title">{title}</h1>}
 
       {text && <p className="dialog-text">{text}</p>}
@@ -40,6 +42,7 @@ export default function DialogElement({
           </MotionWrapper>
         </div>
       )}
+      </div>
     </div>
   );
 }

@@ -35,10 +35,12 @@ scene:
           width: 850
 
         - id: "btnNext4"
-          type: "icon_button"
-          label: "Siguiente"
+          type: "button"
+          variant: "primary"
+          text: "Siguiente"
           top: 930
           right: 120
+          delay: 0.8
           action:
             - "play_sound:next"
             - "next_slide"
@@ -68,8 +70,9 @@ scene:
             - Perfil y expectativas de los compradores industriales.
 
           className: "text-5xl max-w-8xl text-white font-helvetica-condensed leading-[1.2]"
-        - type: "icon_button"
-          label: "Siguiente"
+        - type: "button"
+          variant: "primary"
+          text:  "Siguiente"
           top: 930
           right: 120
           action:
@@ -97,8 +100,9 @@ scene:
             - Principales riesgos y beneficios de la estrategia propuesta.
           className: "text-5xl max-w-8xl text-white font-helvetica-condensed leading-[1.2]"
 
-        - type: "icon_button"
-          label: "Siguiente"
+        - type: "button"
+          variant: "primary"
+          text:  "Siguiente"
           top: 930
           right: 120
           action:
@@ -122,8 +126,9 @@ scene:
           left: 300
           content: "Han pasado 24 horas desde que entregaste tu propuesta al Director general. La recomendación sobre el método de entrada fue recibida, revisada y enviada directamente al equipo jurídico y comercial para su validación."
           className: "text-5xl text-center  max-w-7xl text-white font-helvetica-condensed leading-[1.2]"
-        - type: "icon_button"
-          label: "Siguiente"
+        - type: "button"
+          variant: "primary"
+          text:  "Siguiente"
           top: 930
           right: 120
           action:
@@ -142,6 +147,7 @@ scene:
 
     videos:
       fase3_1_video:
+        id: "fase3_1_video"
         src: "https://drive.google.com/file/d/1gyWVg_IzcTEd-ZKT4IBgTYWMrosBthEw/preview"
 
     audios:
