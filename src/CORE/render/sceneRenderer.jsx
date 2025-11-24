@@ -18,6 +18,7 @@ export default function SceneRenderer({ initialScene }) {
   const [videoId, setVideoId] = useState(stateManager.get("videoId"));
 
   const { scene, error, isLoading, loadingProgress } = useSceneLoader(initialScene);
+  
    // ---------------------------------------
   // 1. Conectar React al StateManager
   // ---------------------------------------
@@ -129,9 +130,9 @@ export default function SceneRenderer({ initialScene }) {
           className="w-[1920px] h-[1080px] relative"
           style={{
             backgroundImage: `url(${
-              scene.assetsIndex?.[slide.background] ||
-              slide.background ||
-              scene.assetsIndex?.[scene.background] ||
+              scene.assetsIndex?.[slide?.background] ||
+              slide?.background ||
+              scene.assetsIndex?.[scene?.background] ||
               scene.background
             })`,
             backgroundSize: "cover",
@@ -141,7 +142,7 @@ export default function SceneRenderer({ initialScene }) {
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
-              {...(animations[slide.animate] || animations.fade)}
+              {...(animations[slide?.animate] || animations.fade)}
             >
               {slide.elements.map((el, i) => {
                 const visibleByEvent = activeElements[el.id] === true;

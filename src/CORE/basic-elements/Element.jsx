@@ -10,8 +10,9 @@ import DialogElement from "./types/DialogElement";
 import CardElement from "./types/CardElement";
 import ModalElement from "./types/ModalElement";
 import MenuInteractiveElement from "./types/MenuInteractiveElement";
-
+import Button from "./types/AriaButton";
 const typeMap = {
+  Button: Button,
   audio: AudioElement,
   icon_button: ButtonElement,
   fileupload: FileUploadElement,
