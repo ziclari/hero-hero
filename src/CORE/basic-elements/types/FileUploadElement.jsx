@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { onEvent } from "../../events/eventBus";
+import { getPath } from "../../config-parser/getPath";
 
 export default function FileUploadElement({
   action,

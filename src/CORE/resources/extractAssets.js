@@ -1,3 +1,4 @@
+import { getPath } from "../config-parser/getPath";
 // Extrae todos los recursos del scene
 export const extractAssets = (scene) => {
     const all = scene.assets || {};

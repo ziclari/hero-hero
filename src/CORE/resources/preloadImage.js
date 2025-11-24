@@ -1,3 +1,4 @@
+import { getPath } from "../config-parser/getPath";
 // Función para precargar una imagen
 export const preloadImage = (srcRel) => {
     const src = getPath(srcRel);

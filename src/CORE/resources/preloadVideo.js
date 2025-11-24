@@ -1,3 +1,4 @@
+import { getPath } from "../config-parser/getPath";
 export const preloadVideo = (srcRel) => {
     const src = getPath(srcRel);
     return new Promise((resolve) => {

@@ -6,6 +6,10 @@ import { useSceneLoader } from "../config-parser/useSceneLoader";
 import { BASE_WIDTH, BASE_HEIGHT } from "./constants";
 import { animations } from "../animation-library/animations";
 import MotionWrapper from "../basic-elements/MotionWrapper";
+import { stateManager } from "../managers/stateManager";
+import { onEvent } from "../events/eventBus";
+import {UIController} from "./UIController";
+import VideoModal from "../basic-elements/types/VideoModalElement";
 
 export default function SceneRenderer({ initialScene }) {
   const scale = useScale(BASE_WIDTH, BASE_HEIGHT);
@@ -37,8 +41,6 @@ export default function SceneRenderer({ initialScene }) {
 
     stateManager.set("slideCount", scene.slides.length);
 
-    // UIController solo necesita saber la escena actual
-    UIController.execute(["set_scene"], scene);
 
   }, [scene]);
 

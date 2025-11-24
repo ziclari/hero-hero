@@ -9,12 +9,10 @@ export default function TextElement({
 }) {
   const isHTML = /<\/?[a-z][\s\S]*>/i.test(content);
 
-  const mergedClassName = `${skin.wrapper} ${className}`.trim();
-
   const Wrapper = action
     ? ({ children }) => (
         <button
-          className={skin.actionWrapper}
+          className={className}
           onClick={() => onAction?.(action)}
         >
           {children}
@@ -24,12 +22,12 @@ export default function TextElement({
 
   const contentElement = isHTML ? (
     <div
-      className={mergedClassName}
+      className={className}
       style={{ whiteSpace: "pre-line" }}
       dangerouslySetInnerHTML={{ __html: content }}
     />
   ) : (
-    <div className={mergedClassName} style={{ whiteSpace: "pre-line" }}>
+    <div className={className} style={{ whiteSpace: "pre-line" }}>
       {content}
     </div>
   );

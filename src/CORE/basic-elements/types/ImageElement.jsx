@@ -1,7 +1,6 @@
 // src/components/types/ImageElement.js
 import React from "react";
 import { getPath } from "../../config-parser/getPath";
-
 export default function ImageElement({
   src,
   action,

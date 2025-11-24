@@ -1,3 +1,4 @@
+import { getPath } from "../config-parser/getPath";
 // Función para precargar audio
 export const preloadAudio = (srcRel) => {
     const src = getPath(srcRel);
