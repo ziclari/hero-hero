@@ -51,7 +51,7 @@ export default function SceneRenderer({ initialScene }) {
   // ---------------------------------------
   // 3. Manejar acciones de elementos
   // ---------------------------------------
-  const onAction = (a) => UIController.execute(a, scene);
+  const onAction = (a) => {UIController.execute(a, scene); console.log(a)}
 
   // ---------------------------------------
   // 4. Control de eventos declarados en YAML
@@ -189,6 +189,9 @@ export default function SceneRenderer({ initialScene }) {
                       background={
                         scene.assetsIndex?.[el.background] || el.background
                       }
+                      assets={scene.assetsIndex}
+                      activeElements={activeElements}
+                      setActiveElements={setActiveElements}
                       onAction={(action) => onAction(action, el.id)}
                     />
                   </MotionWrapper>

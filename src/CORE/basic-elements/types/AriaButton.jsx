@@ -58,6 +58,8 @@ const Button = React.forwardRef(
       elements,      // hijos declarados desde YAML
       children,      // hijos React directos
       renderElement, // función del motor de escenas para renderizar elementos
+      onAction,
+      action,
       ...props
     },
     ref
@@ -79,13 +81,14 @@ const Button = React.forwardRef(
             backgroundPosition: 'center'
           }
         : {};
-
+      console.log(props)
     return (
       <AriaButton
         {...props}
         ref={ref}
         {...(finalClassName ? { className: finalClassName } : {})}
         {...(Object.keys(style).length ? { style } : {})}
+        onPress={() => onAction?.(action)}
       >
 
         {/* Imagen inline cuando NO es fondo */}

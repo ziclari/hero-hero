@@ -8,7 +8,9 @@ export default function GroupElement({
   background,
   action,
   onAction,
-  className
+  className,
+  activeElements,
+  setActiveElements,
 }) {
   const classes = [
     "group",          // Clase base estándar para grupos
@@ -58,7 +60,9 @@ export default function GroupElement({
                   : undefined
               }
               background={assets?.[child.background] || child.background}
-              onAction={onAction}
+              activeElements={activeElements}
+              setActiveElements={setActiveElements}
+              onAction={(action) => onAction?.(action, child.id)}
             />
           </MotionWrapper>
         );

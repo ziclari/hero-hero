@@ -1,18 +1,16 @@
-@import "tailwindcss";
-
 @font-face {
   font-family: "HelveticaNeueThin";
-  src: url("/fonts/HelveticaNeueThin.otf") format("opentype");
+  src: url("./fonts/HelveticaNeueThin.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "HelveticaNeueCondensed";
-  src: url("/fonts/HelveticaNeue-Condensed.ttf") format("truetype");
+  src: url("./fonts/HelveticaNeue-Condensed.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
-@theme {
+:root {
   --font-helvetica: "HelveticaNeueThin", sans-serif;
   --font-helvetica-condensed: "HelveticaNeueCondensed", sans-serif;
   --color-brand-blue: hsl(214, 100%, 50%);
@@ -33,7 +31,15 @@ h5 {
   font-family: var(--font-helvetica-condensed);
 }
 
-.button {
+.heading-text{
+  font-size: 3rem; 
+  line-height: 1.2; 
+  color: rgb(255,255,255);
+  text-align: center;
+}
+
+
+.button-primary {
   border: none;
   outline: none;
   cursor: pointer;
@@ -41,7 +47,6 @@ h5 {
   align-items: center;
   gap: 1.5rem;
   padding: 0.5rem 2.5rem;
-  padding-right: 1rem;
   border-radius: 100px;
   background: linear-gradient(45deg, #006bff, #00b3ff);
   background-size: 200% 100%;
@@ -52,77 +57,14 @@ h5 {
   transition: background-position 0.4s ease, transform 0.2s ease;
 }
 
-button.button.disabled,
-button.button:disabled {
-  background: linear-gradient(45deg, #999, #bbb);
-  background-size: 200% 100%;
-  color: #eee;
-  cursor: not-allowed;
-  transform: none;
-  opacity: 0.7;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.button.icon {
-  padding: 0.5rem;
-  background: transparent;
-}
-.button.icon.color {
-  padding: 0.2rem;
-  background: linear-gradient(45deg, #006bff, #00b3ff);
-}
-.button:hover {
+.button-primary:hover {
   background-position: right center;
   transform: scale(1.05);
 }
-.button__span {
-  background-color: white;
-  color: #07254e;
-  border-radius: 100%;
-  padding: 1rem;
-}
 
-.button__icon {
-  width: 2rem;
-  height: 2rem;
-  fill: currentColor;
-  transform: rotate(270deg);
-}
-
-.button.small {
-  font-size: 1rem;
-  padding: 0.3rem 1rem;
-  padding-right: 0.4rem;
-}
-
-.button.small .button__icon {
-  width: 1rem;
-  height: 1rem;
-}
-
-.button.ghost {
-  color: rgba(255, 255, 255, 0.5);
-  background: transparent;
-}
-.button.ghost .button__icon {
-  fill: currentColor;
-  transform: rotate(90deg);
-}
-
-.button.ghost .button__span {
-  background: rgba(255, 255, 255, 0.5);
-}
-.button.ghost:hover {
-  color: rgba(255, 255, 255, 1);
-}
-.button.ghost:hover .button__span {
-  background: rgba(255, 255, 255, 1);
-}
-
-.comentario {
+.dialog {
   position: relative;
-  background: url("/chats/comentario.png") no-repeat center;
+  background: url("./chats/comentario.png") no-repeat center;
   background-size: 100% 100%;
   padding-top: 64px;
   padding-right: 64px;
@@ -136,36 +78,36 @@ button.button:disabled {
   box-sizing: border-box;
 }
 
-.comentario h1,
-.comentario p {
+.dialog-title,
+.dialog-text {
   margin: 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 100%;
   text-align: left;
 }
-.comentario h1 {
+.dialog-title {
   font-size: 3.2rem;
   margin-bottom: 0.6rem;
   font-weight: bold;
 }
-.comentario p {
+.dialog-text {
   font-weight: bold;
   font-size: 2.2rem;
   line-height: 1.4;
 } /* Bloque de “ver video” */
-.comentario .video {
+.dialog-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-top: 1rem;
   cursor: pointer;
 }
-.comentario span {
+.dialog-button-label {
   font-weight: bold;
   font-size: 2rem;
 }
-.comentario .icon {
+.dialog-button-icon {
   width: 120px;
   height: auto;
   object-fit: contain;
