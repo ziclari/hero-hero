@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { onEvent } from "../../sceneRenderer/eventBus";
+import { onEvent } from "../../events/eventBus";
 
 export default function FileUploadElement({
   action,

@@ -1,6 +1,6 @@
 import { motion, useAnimationControls } from "framer-motion";
 import { useEffect } from "react";
-import { animations } from "../sceneRenderer/animations";
+import { animations } from "../animation-library/animations";
 
 export default function MotionWrapper({ children, animate, delay = 0, style }) {
   const controls = useAnimationControls();

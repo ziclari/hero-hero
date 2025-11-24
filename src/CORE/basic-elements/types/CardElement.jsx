@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Icon } from "@iconify/react";
-import { getPath } from "../../sceneRenderer/getPath";
+import { getPath } from "../../config-parser/getPath";
 export default function CardElement({
   id,
   img,

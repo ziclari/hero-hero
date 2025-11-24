@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { Icon } from "@iconify/react";
-import { getPath } from "../../sceneRenderer/getPath";
+import { getPath } from "../../config-parser/getPath";
 export default function AudioElement({
   src,
   autoplay,

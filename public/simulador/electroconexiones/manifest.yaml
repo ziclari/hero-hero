@@ -5,6 +5,7 @@ meta:
   description: "Simulador interactivo con fases progresivas."
   requireLogin: true
   startScene: "intro"
+  skin: "index.css"
 
 scenes:
   - id: intro

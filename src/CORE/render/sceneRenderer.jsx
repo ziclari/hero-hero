@@ -5,7 +5,7 @@ import { useScale } from "./useScale";
 import { useSceneLoader } from "../config-parser/useSceneLoader";
 import { BASE_WIDTH, BASE_HEIGHT } from "./constants";
 import { animations } from "../animation-library/animations";
-import MotionWrapper from "../element/MotionWrapper";
+import MotionWrapper from "../basic-elements/MotionWrapper";
 
 export default function SceneRenderer({ initialScene }) {
   const scale = useScale(BASE_WIDTH, BASE_HEIGHT);

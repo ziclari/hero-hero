@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logo from "./moodle_logo.png";
-import { loginUser } from "../../external-services/moodle-service";
+import { loginUser } from "../../external-services/moodle-service/moodleService";
 import "./login.css";
 
 function Login({ setValid }) {

@@ -1,21 +1,13 @@
 // TextElement.jsx
 import React from "react";
-import { SkinManager } from "../../skinManager";
-import defaultSkin from "../../skins/textElement.default.json";
 
 export default function TextElement({
   content,
   className = "",
   action,
   onAction,
-  skinName = "default"
 }) {
   const isHTML = /<\/?[a-z][\s\S]*>/i.test(content);
-
-  // Merge skin (external overrides default)
-  const skin =
-    SkinManager.get("textElement", skinName) ||
-    defaultSkin["default"];
 
   const mergedClassName = `${skin.wrapper} ${className}`.trim();
 

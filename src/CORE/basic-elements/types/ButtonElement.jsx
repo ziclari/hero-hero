@@ -1,5 +1,5 @@
 import React from "react";
-import { getPath } from "../../sceneRenderer/getPath";
+import { getPath } from "../../config-parser/getPath";
 export default function ButtonElement({
   src,
   action,
