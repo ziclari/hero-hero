@@ -55,19 +55,21 @@ const Button = React.forwardRef(
       imageClassName,
       useAsBackground = false,
       text,
-      elements,
+      elements,      // hijos declarados desde YAML
+      children,      // hijos React directos
       renderElement, // función del motor de escenas para renderizar elementos
       ...props
     },
     ref
   ) => {
 
-    const finalClassName =
-      className != null
-        ? variant != null
-          ? `button-${variant} ${className}`
-          : className
-        : undefined;
+    const finalClassName = [
+      variant ? `button-${variant}` : null,
+      className || null
+    ]
+      .filter(Boolean)
+      .join(" ") || undefined;
+    
 
     const style =
       useAsBackground && imageSrc
@@ -99,8 +101,11 @@ const Button = React.forwardRef(
         {Array.isArray(elements) && renderElement &&
           elements.map((el, idx) => renderElement(el, idx))}
 
+        {/* CHILDREN DE REACT */}
+        {children}
+
         {/* TEXTO */}
-        {!elements && text}
+        {!children && !elements && text}
 
       </AriaButton>
     );

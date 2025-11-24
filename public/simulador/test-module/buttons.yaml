@@ -4,16 +4,27 @@ scene:
   slides:
     - id: intro_1
       elements:
+        - id: track1
+          type: audio
+          src: "https://cdn.freesound.org/previews/835/835124_7395592-lq.mp3"
+          waveColor: "rgba(255, 0, 0, 0.3)"
+          progressColor: "rgba(255, 0, 0, 0.9)"
+          cursorColor: "#ff0000"
+          height: 120
+          barWidth: 4
+          top: 200
+          left: 400
+
         # Botón básico con texto
         - id: button1
-          type: Button
+          type: button
           text: "Comenzar"
           top: 200
           left: 100
 
         # Botón con variante secundario y posición custom
         - id: button2
-          type: Button
+          type: button
           variant: "secondary"
           text: "Siguiente"
           left: 300
@@ -21,7 +32,7 @@ scene:
 
         # Botón como ícono (solo imagen)
         - id: button3
-          type: Button
+          type: button
           imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVII81lLHcRToiW93XzkZ2QgrzX_HKRwCbJA&s"
           imageAlt: "Reproducir"
           imageClassName: "w-10 h-10"
@@ -30,7 +41,7 @@ scene:
 
         # Botón imagen + texto (ícono + texto)
         - id: button4
-          type: Button
+          type: button
           text: "Eliminar"
           variant: "danger"
           imageSrc: "https://cdn.iconscout.com/icon/free/png-256/free-trash-icon-svg-download-png-1401297.png"
@@ -41,7 +52,7 @@ scene:
 
         # Botón con imagen como fondo (botón gráfico completo)
         - id: button5
-          type: Button
+          type: button
           text: "Iniciar"
           useAsBackground: true
           imageSrc: "/assets/button-bg/start-button.png"
@@ -51,7 +62,7 @@ scene:
 
         # Botón sin texto pero con children (si tu motor lo soporta)
         - id: button6
-          type: Button
+          type: button
           elements:  
           - type: text
             content: "Entrar"

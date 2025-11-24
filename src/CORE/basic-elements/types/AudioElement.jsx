@@ -2,12 +2,19 @@ import React, { useRef, useEffect, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { Icon } from "@iconify/react";
 import { getPath } from "../../config-parser/getPath";
+import Button from "./AriaButton";
+
 export default function AudioElement({
   src,
   autoplay,
   className,
-  action, // <- nuevo, por si defines action en YAML
-  onAction, // <- callback global de acciones
+  action,
+  onAction,
+  waveColor = "rgba(0, 107, 255, 0.3)",
+  progressColor = "rgba(0, 179, 255, 0.9)",
+  cursorColor = "#00b3ff",
+  height = 150,
+  barWidth = 3
 }) {
   const containerRef = useRef(null);
   const waveSurferRef = useRef(null);
@@ -18,18 +25,18 @@ export default function AudioElement({
 
     waveSurferRef.current = WaveSurfer.create({
       container: containerRef.current,
-      waveColor: "rgba(0, 107, 255, 0.3)",
-      progressColor: "rgba(0, 179, 255, 0.9)",
-      cursorColor: "#00b3ff",
-      height: 150,
-      barWidth: 3,
+      waveColor,
+      progressColor,
+      cursorColor,
+      height,
+      barWidth,
       responsive: true,
       normalize: true,
     });
+
     const soundsrc = src.includes("http") ? src : getPath(src);
     waveSurferRef.current.load(soundsrc);
 
-    // Autoplay
     if (autoplay) {
       waveSurferRef.current.on("ready", () => {
         waveSurferRef.current.play();
@@ -37,11 +44,13 @@ export default function AudioElement({
       });
     }
 
-    // Evento al terminar
     waveSurferRef.current.on("finish", () => {
       setIsPlaying(false);
-      if (onAction && action) onAction({ type: action }); // dispara acción YAML
-      // o emitir evento genérico si lo prefieres:
+
+      if (action && onAction) {
+        onAction({ type: action });
+      }
+
       onAction?.({ type: "audio_finished" });
     });
 
@@ -55,16 +64,16 @@ export default function AudioElement({
 
   return (
     <div className={`flex items-center gap-4 ${className}`}>
-      <button
-        onClick={togglePlay}
-        className="flex cursor-pointer items-center justify-center w-16 h-16 bg-white text-[#07254e] rounded-full hover:bg-white/60 transition-colors duration-200 shadow-lg"
+      <Button
+        onPress={togglePlay}
+        variant="audio"  
       >
         <Icon
           icon={isPlaying ? "mdi:pause" : "mdi:play"}
           width="28"
           height="28"
         />
-      </button>
+      </Button>
 
       <div
         ref={containerRef}

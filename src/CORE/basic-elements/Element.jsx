@@ -11,8 +11,11 @@ import CardElement from "./types/CardElement";
 import ModalElement from "./types/ModalElement";
 import MenuInteractiveElement from "./types/MenuInteractiveElement";
 import Button from "./types/AriaButton";
+import Link from "./types/AriaLink";
+
 const typeMap = {
-  Button: Button,
+  button: Button,
+  link: Link,
   audio: AudioElement,
   icon_button: ButtonElement,
   fileupload: FileUploadElement,
