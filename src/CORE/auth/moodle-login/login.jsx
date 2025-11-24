@@ -3,7 +3,7 @@ import logo from "./moodle_logo.png";
 import { loginUser } from "../../external-services/moodle-service/moodleService";
 import "./login.css";
 
-function Login({ setValid }) {
+function Login({ onSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ function Login({ setValid }) {
 
     try {
       const result = await loginUser(email, password);
-      if (result) setValid(true);
+      if (result) onSuccess();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al iniciar sesión");
     } finally {

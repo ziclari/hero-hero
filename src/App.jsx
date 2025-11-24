@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useEffect, useState } from "react";
 import SceneRenderer from "./CORE/render/sceneRenderer";
 import LoginGate from "./CORE/auth/moodle-login/loginGate";
@@ -13,24 +12,49 @@ export default function App() {
   const [initialScene, setInitialScene] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sessionReady, setSessionReady] = useState(false);
+  const [error, setError] = useState(null); // <-- estado de error
+
+  const getParams = async () => {
+    const params = new URLSearchParams(location.search);
+    const prefix = params.get("prefix");
+    const courseId = params.get("course_id");
+    const user = params.get("user");
+
+    // Verificar que todos los parámetros existan
+    if (!prefix || !courseId || !user) {
+      throw new Error("Por favor, inicie desde Moodle");
+    }
+
+    sessionStorage.setItem("prefix", prefix);
+    sessionStorage.setItem("courseId", courseId);
+    sessionStorage.setItem("userId", user);
+  };
 
   useEffect(() => {
     const init = async () => {
-      const m = await loadModuleManifest(getPath('manifest.yaml'));
-      setManifest(m);
+      try {
+        const m = await loadModuleManifest(getPath("manifest.yaml"));
+        setManifest(m);
 
-      // Cargar CSS del manifest
-      if (m.meta?.skin) {
-        loadCssDynamically(getPath(m.meta.skin));
+        await getParams();
+
+        // Cargar CSS del manifest
+        if (m.meta?.skin) {
+          loadCssDynamically(getPath(m.meta.skin));
+        }
+
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+        setLoading(false);
       }
-
-      setLoading(false);
     };
 
     init();
   }, []);
 
-  // Cuando la sesión está lista, resolvemos escena inicial
+  // Resolver escena inicial cuando la sesión está lista
   useEffect(() => {
     if (!sessionReady || !manifest) return;
 
@@ -38,7 +62,17 @@ export default function App() {
     setInitialScene(getPath(file));
   }, [sessionReady, manifest, assignments]);
 
-  if (loading || !manifest) return <div>Cargando simulador…</div>;
+  // Renderizado
+  if (loading) return <div>Cargando simulador…</div>;
+
+  if (error) {
+    return (
+      <div style={{ padding: "2rem", color: "red", textAlign: "center" }}>
+        <h2>Error</h2>
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   if (!sessionReady)
     return (
@@ -50,6 +84,8 @@ export default function App() {
         }}
       />
     );
+
   if (!initialScene) return <div>Cargando escena inicial…</div>;
+
   return <SceneRenderer initialScene={initialScene} />;
 }

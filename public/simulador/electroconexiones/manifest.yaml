@@ -3,7 +3,7 @@ meta:
   name: "Simulador de electro conexiones"
   version: "1.0"
   description: "Simulador interactivo con fases progresivas."
-  requireLogin: false
+  requireLogin: true
   startScene: "intro"
   skin: "index.css"
 
