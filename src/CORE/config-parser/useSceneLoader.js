@@ -8,9 +8,9 @@ import { preloadAudio } from "../resources/preloadAudio";
 import { preloadImage } from "../resources/preloadImage";
 import { preloadVideo } from "../resources/preloadVideo";
 
-export function useSceneLoader() {
+export function useSceneLoader(initialScene) {
   const [currentSceneFile, setCurrentSceneFile] = useState(
-    stateManager.get("currentSceneFile") || "intro.yaml"
+    stateManager.get("currentSceneFile") || initialScene
   );
 
   const [slideIndex, setSlideIndex] = useState(
@@ -57,6 +57,7 @@ export function useSceneLoader() {
         const res = await fetch(realpath);
         const text = await res.text();
         const parsed = yaml.load(text);
+        console.log(realpath)
         const sceneData = parsed?.scene || parsed;
 
         if (isCancelled) return;
@@ -105,8 +106,8 @@ export function useSceneLoader() {
         setIsLoading(false);
       }
     };
-
-    loadScene();
+    if(currentSceneFile)
+      loadScene();
     return () => (isCancelled = true);
   }, [currentSceneFile]);
 

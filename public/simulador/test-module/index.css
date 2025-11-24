@@ -2,7 +2,7 @@
    BASE BUTTON (React Aria default class)
    ========================================= */
    .react-aria-Button,
-   .ui-button--secondary {
+   .button-secondary {
      display: inline-flex;
      align-items: center;
      justify-content: center;
@@ -19,17 +19,17 @@
    
    /* Estados generales */
    .react-aria-Button[data-hovered],
-   .ui-button--secondary[data-hovered] {
+   .button-secondary[data-hovered] {
      filter: brightness(1.1);
    }
    
    .react-aria-Button[data-pressed],
-   .ui-button--secondary[data-pressed] {
+   .button-secondary[data-pressed] {
      transform: scale(0.96);
    }
    
    .react-aria-Button[data-disabled],
-   .ui-button--secondary[data-disabled] {
+   .button-secondary[data-disabled] {
      opacity: 0.5;
      cursor: not-allowed;
    }
@@ -37,20 +37,20 @@
    /* =========================================
       VARIANTE: SECONDARY
       ========================================= */
-   .ui-button--secondary {
+   .button-secondary {
      background: #e0e0e0;
      color: #222222;
    }
    
-   .ui-button--secondary[data-hovered] {
+   .button-secondary[data-hovered] {
      background: #e8e8e8;
    }
    
-   .ui-button--secondary[data-pressed] {
+   .button-secondary[data-pressed] {
      background: #d0d0d0;
    }
    
-   .ui-button--secondary[data-disabled] {
+   .button-secondary[data-disabled] {
      opacity: 0.5;
    }
    

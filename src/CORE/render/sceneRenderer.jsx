@@ -16,7 +16,7 @@ export default function SceneRenderer({ initialScene }) {
   const [slideIndex, setSlideIndex] = useState(stateManager.get("slideIndex"));
   const [activeElements, setActiveElements] = useState(stateManager.get("activeElements"));
   const [videoId, setVideoId] = useState(stateManager.get("videoId"));
-
+  
   const { scene, error, isLoading, loadingProgress } = useSceneLoader(initialScene);
   
    // ---------------------------------------

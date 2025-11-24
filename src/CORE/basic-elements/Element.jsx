@@ -31,10 +31,11 @@ export default function Element({ type, onAction, ...props }) {
   const commonProps = {
     onAction,
     className: props.className || "",
+    renderElement: Element,
   };
 
   const SpecificElement = typeMap[type];
 
   if (!SpecificElement) return null;
-  return <SpecificElement {...props} {...commonProps} />;
+  return <SpecificElement key={type + props.id} {...props} {...commonProps} />;
 }

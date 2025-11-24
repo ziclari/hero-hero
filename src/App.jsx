@@ -50,6 +50,6 @@ export default function App() {
         }}
       />
     );
-
+  if (!initialScene) return <div>Cargando escena inicial…</div>;
   return <SceneRenderer initialScene={initialScene} />;
 }

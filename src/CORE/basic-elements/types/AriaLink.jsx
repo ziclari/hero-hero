@@ -1,9 +1,10 @@
-import { Button as AriaButton } from 'react-aria-components';
+import { Link as AriaLink } from 'react-aria-components';
 import React from 'react';
 
 /**
- * @typedef {Object} CustomButtonProps
- * @property {'primary' | 'secondary' | 'danger' | string} [variant] - Variante visual.
+ * @typedef {Object} CustomLinkProps
+ * @property {'default' | 'subtle' | 'button-like' | string} [variant='default'] - Define la variante visual del enlace para estilos personalizados.
+ * @property {LinkProps} [LinkProps] - Todas las props nativas del componente Link de react-aria-components.
  * @property {string} [className] - Clases CSS opcionales.
  * @property {string} [imageSrc] - Si se pasa, el botón se renderiza como imagen o con imagen.
  * @property {string} [imageAlt] - Texto alternativo para la imagen.
@@ -12,40 +13,7 @@ import React from 'react';
  * @property {string|JSX.Element} [text] - Texto del botón.
  */
 
-/**
- * Botón extendido: permite usar texto, imagen o ambos.
- *
- * @param {import('react-aria-components').ButtonProps & CustomButtonProps} props
- */
-
-/**
- * Ejemplo de uso:
- * 
-solo texto
-<Button text="Guardar" variant="primary" />
-solo imagen
-<Button imageSrc="/icons/trash.svg" imageAlt="Eliminar" variant="danger" />
-Imagen y texto
-<Button
-  imageSrc="/icons/add.svg"
-  imageClassName="w-4 h-4 mr-2"
-  text="Agregar"
-  variant="primary"
-/>
-Imagen fondo
-<Button
-  imageSrc="/img/bg-button.png"
-  useAsBackground
-  text="Iniciar"
-  className="w-40 h-12 text-white rounded-lg"
-/>
-imagen y children
-<Button imageSrc="/icons/play.svg">
-  <span>Continuar</span>
-</Button>
-
- */
-const Button = React.forwardRef(
+const Link = React.forwardRef(
   (
     {
       variant,
@@ -65,7 +33,7 @@ const Button = React.forwardRef(
     const finalClassName =
       className != null
         ? variant != null
-          ? `button-${variant} ${className}`
+          ? `link-${variant} ${className}`
           : className
         : undefined;
 
@@ -79,7 +47,7 @@ const Button = React.forwardRef(
         : {};
 
     return (
-      <AriaButton
+      <AriaLink
         {...props}
         ref={ref}
         {...(finalClassName ? { className: finalClassName } : {})}
@@ -102,10 +70,10 @@ const Button = React.forwardRef(
         {/* TEXTO */}
         {!elements && text}
 
-      </AriaButton>
+      </AriaLink>
     );
   }
 );
 
-Button.displayName = 'Button';
-export default Button;
+Link.displayName = 'Link';
+export default Link;
