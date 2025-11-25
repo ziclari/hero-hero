@@ -82,10 +82,14 @@ export const UIController = {
 
             const result = await submitAssignment(action.assignmentId, file);
             
-            const assignments = stateManager.get("assignments") || {};
-            assignments[id] = { status: "submitted" };
-            stateManager.set("assignments", assignments);
-
+            const assignments = stateManager.get("assignments");
+            const updated = assignments.map((a) =>
+                a.id === action.assignmentId
+                ? { ...a, submissionstatus: "submitted" }
+                : a
+            );
+            
+            stateManager.set("assignments", updated);
             emitEvent("success:upload_file_" + action.id);
             return result;
 

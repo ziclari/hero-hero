@@ -88,20 +88,14 @@ export default function FileUploadElement({
   const handleUpload = async (file) => {
     if (!file || isDisabled) return;
 
-    setIsLoading(true);
+    const assignment = findAssignment(id);
 
-    const assignment = findAssignment(id); // obtiene el assignment real de Moodle
-
-    try {
-      await onAction({
-        type: action,
-        id,                   // id textual del YAML
-        assignmentId: assignment?.id, // id real de Moodle
-        __file: file,
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    await onAction({
+      type: action,
+      id,
+      assignmentId: assignment?.id,
+      __file: file,
+    });
   };
 
   const handleFileChange = (event) => {
