@@ -1,6 +1,7 @@
 // CORE/state/StateManager.js
 import { emitEvent } from "../events/eventBus";
-const STORAGE_KEY = 'simulator_state_v3';
+import { getStorageKey } from "../config-parser/getPath";
+const STORAGE_KEY = getStorageKey();
 
 class StateManager {
   constructor() {

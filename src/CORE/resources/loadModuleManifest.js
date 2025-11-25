@@ -7,7 +7,6 @@ import yaml from "js-yaml";
  * - YAML inválido.
  */
 export async function loadModuleManifest(url) {
-  console.log(url)
   let res;
 
   try {

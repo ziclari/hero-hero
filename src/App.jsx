@@ -14,14 +14,13 @@ export default function App() {
   const [sessionReady, setSessionReady] = useState(false);
   const [error, setError] = useState(null); // <-- estado de error
 
-  const getParams = async () => {
+  const getParams = async (m) => {
     const params = new URLSearchParams(location.search);
     const prefix = params.get("prefix");
     const courseId = params.get("course_id");
     const user = params.get("user");
-
     // Verificar que todos los parámetros existan
-    if (!prefix || !courseId || !user) {
+    if ((!prefix || !courseId || !user) && m.meta.requireLogin) {
       throw new Error("Por favor, inicie desde Moodle");
     }
 
@@ -36,7 +35,7 @@ export default function App() {
         const m = await loadModuleManifest(getPath("manifest.yaml"));
         setManifest(m);
 
-        await getParams();
+        await getParams(m);
 
         // Cargar CSS del manifest
         if (m.meta?.skin) {
