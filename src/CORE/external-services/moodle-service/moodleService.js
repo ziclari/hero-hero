@@ -50,11 +50,11 @@ export async function refreshSession() {
  * Obtener tareas del curso desde el backend
  */
 export async function getAssignments() {
-  const cached = JSON.parse(stateManager.get("assignments") || "[]");
+  const cached = stateManager.get("assignments");
   // Si hay algo en caché, intenta usarlo
   if (cached) {
     try {
-      const parsed = JSON.parse(cached);
+      const parsed = JSON.parse(cached || "[]");
       if (Array.isArray(parsed) && parsed.length > 0) {
         return parsed; // usa el caché válido
       }

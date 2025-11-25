@@ -60,15 +60,42 @@ class StateManager {
     this.save(key);
   }
 
-  markAssignmentComplete(name) {
-    this.state.assignments[name] = {
-      status: "submitted",
-      timestamp: Date.now()
-    };
-
-    emitEvent("state:assignments:changed", this.state.assignments);
-    this.save("assignments");
+  markAssignmentComplete(assignmentName, key = "status", value = "submitted") {
+    let raw = this.state.assignments;
+  
+    // Parsear si viene en string
+    if (typeof raw === "string") {
+      try {
+        raw = JSON.parse(raw);
+      } catch {
+        console.error("Assignments corruptos en stateManager");
+        return;
+      }
+    }
+  
+    if (!Array.isArray(raw)) {
+      console.error("Assignments no es un array");
+      return;
+    }
+  
+    // Buscar
+    const index = raw.findIndex(a => a.name === assignmentName);
+    if (index === -1) {
+      const virtualAssignment = {
+        id: assignmentName,
+        name: assignmentName,
+        submissionstatus: "submitted"
+      };
+      // Asignar la key sin romper el objeto original de Moodle
+      raw.push(virtualAssignment);
+      // Guardar
+      this.state.assignments = JSON.stringify(raw);
+      this.save("assignments");
+    }
+  
+    emitEvent("state:assignments:changed", raw);
   }
+  
 
   save(key) {
     const engine = PERSISTENCE_MAP[key];

@@ -24,6 +24,8 @@ export default function CardElement({
 
   const isCompleted = (key) => {
     const found = assignments.find((a) => a.name === key);
+    console.log(key)
+    console.log(assignments)
     return found?.submissionstatus === "submitted";
   };
 

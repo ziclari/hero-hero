@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { onEvent } from "../../events/eventBus";
 import { getPath } from "../../config-parser/getPath";
 import { stateManager } from "../../managers/stateManager";
-
+import { emitEvent } from "../../events/eventBus";
 export default function FileUploadElement({
   action,      // "upload_file"
   onAction,    // UIController
@@ -50,6 +50,7 @@ export default function FileUploadElement({
 
     if (assignment.submissionstatus === "submitted") {
       setIsDisabled(true);
+      emitEvent("success:upload_file_" + id);
       return true;
     }
 
