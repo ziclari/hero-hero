@@ -459,6 +459,15 @@
   line-height: 1.2;
   color: var(--color-white);
 }
+.InstructionText {
+  max-width: var(--container-7xl);
+  font-family: var(--font-helvetica-condensed);
+  font-size: var(--text-5xl);
+  line-height: var(--tw-leading, var(--text-5xl--line-height));
+  --tw-leading: 1.2;
+  line-height: 1.2;
+  color: var(--color-white);
+}
 .CalendarTextInstruction {
   text-align: center;
   font-size: var(--text-2xl);
@@ -811,14 +820,10 @@ h1, h2, h3, h4, h5 {
 }
 .button-audio {
   border-radius: 50%;
-  background: #e0e0e0;
-  color: #222222;
-  width: 64px;
-  height: 64px;
-}
-.button-audio svg {
-  width: 48px;
-  height: 48px;
+  background: linear-gradient(45deg, #006bff, #00b3ff);
+  color: white;
+  padding: 8px;
+  cursor: pointer;
 }
 .button-audio[data-hovered] {
   background: #e8e8e8;

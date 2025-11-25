@@ -116,6 +116,9 @@
 .EndScreenText{
   @apply text-5xl text-center max-w-7xl text-white font-helvetica-condensed leading-[1.2];
 }
+.InstructionText{
+  @apply text-5xl max-w-7xl text-white font-helvetica-condensed leading-[1.2];
+}
 .CalendarTextInstruction{
   @apply text-white text-2xl text-center;
 }
@@ -489,14 +492,10 @@ body {
      */
      .button-audio {
       border-radius: 50%;
-      background: #e0e0e0;
-      color: #222222;
-      width: 64px;
-      height: 64px;
-    }
-    .button-audio svg{
-      width: 48px;
-      height: 48px;
+      background: linear-gradient(45deg, #006bff, #00b3ff);
+      color: white;
+      padding: 8px;
+      cursor: pointer;
     }
     .button-audio[data-hovered] {
       background: #e8e8e8;

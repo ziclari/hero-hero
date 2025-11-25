@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { Icon } from "@iconify/react";
 import { getPath } from "../../config-parser/getPath";
-import Button from "./AriaButton";
 
 export default function AudioElement({
   src,
@@ -22,7 +21,11 @@ export default function AudioElement({
 
   useEffect(() => {
     if (!containerRef.current) return;
-
+  
+    if (waveSurferRef.current) {
+      waveSurferRef.current.destroy();
+    }
+  
     waveSurferRef.current = WaveSurfer.create({
       container: containerRef.current,
       waveColor,
@@ -33,51 +36,54 @@ export default function AudioElement({
       responsive: true,
       normalize: true,
     });
-
+  
+    const ws = waveSurferRef.current;
     const soundsrc = src.includes("http") ? src : getPath(src);
-    waveSurferRef.current.load(soundsrc);
-
-    if (autoplay) {
-      waveSurferRef.current.on("ready", () => {
-        waveSurferRef.current.play();
+  
+    ws.load(soundsrc);
+  
+    ws.on("ready", () => {
+      ws.isReady = true;
+  
+      if (autoplay) {
+        ws.play();
         setIsPlaying(true);
-      });
-    }
-    waveSurferRef.current.on("pause", () => {
+      }
+    });
+  
+    ws.on("pause", () => {
       setIsPlaying(false);
     });
-
-    waveSurferRef.current.on("finish", () => {
+  
+    ws.on("finish", () => {
       setIsPlaying(false);
-
-      if (action && onAction) {
-        onAction({ type: action });
-      }
-
+      if (action && onAction) onAction({ type: action });
       onAction?.({ type: "audio_finished" });
     });
-
-    return () => waveSurferRef.current?.destroy();
+  
+    return () => ws.destroy();
   }, [src]);
-
+  
   const togglePlay = () => {
-    waveSurferRef.current.playPause();
-    setIsPlaying(waveSurferRef.current.isPlaying());
-    console.log("hola")
-  };
+    const ws = waveSurferRef.current;
+    if (!ws || !ws.isReady) return;
+  
+    ws.playPause();
+    setIsPlaying(ws.isPlaying());
+  };  
 
   return (
     <div className={`flex items-center gap-4 ${className}`}>
-      <Button
-        onPress={togglePlay}
-        variant="audio"  
+      <button
+        onClick={togglePlay}
+        className="button-audio"
       >
         <Icon
           icon={isPlaying ? "mdi:pause" : "mdi:play"}
           width="28"
           height="28"
         />
-      </Button>
+      </button>
 
       <div
         ref={containerRef}
