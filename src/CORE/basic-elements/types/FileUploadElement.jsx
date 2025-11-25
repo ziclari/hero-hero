@@ -20,7 +20,7 @@ export default function FileUploadElement({
   // Buscar assignment según el JSON recibido de Moodle
   // --------------------------
   const findAssignment = (needle) => {
-    const list = stateManager.get("assignments"); // array de Moodle
+    const list = JSON.parse(stateManager.get("assignments") || "[]"); // array de Moodle
 
     if (!Array.isArray(list)) return null;
 

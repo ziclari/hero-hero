@@ -50,8 +50,7 @@ export async function refreshSession() {
  * Obtener tareas del curso desde el backend
  */
 export async function getAssignments() {
-  const cached = stateManager.get("assignments");
-
+  const cached = JSON.parse(stateManager.get("assignments") || "[]");
   // Si hay algo en caché, intenta usarlo
   if (cached) {
     try {
@@ -80,7 +79,7 @@ export async function getAssignments() {
     });
 
     const assignments = data.assignments || [];
-    stateManager.set("assignments", assignments)
+    stateManager.set("assignments", JSON.stringify(assignments))
     return assignments;
   } catch (error) {
     console.error("Error al consultar tareas:", error);
