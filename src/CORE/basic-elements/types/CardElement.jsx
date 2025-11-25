@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Icon } from "@iconify/react";
 import { getPath } from "../../config-parser/getPath";
 import Button from "./AriaButton";
+import { stateManager } from "../../managers/stateManager";
 
 export default function CardElement({
   id,
@@ -15,7 +16,7 @@ export default function CardElement({
 }) {
   const assignments = useMemo(() => {
     try {
-      return JSON.parse(sessionStorage.getItem("assignments") || "[]");
+      return JSON.parse(stateManager.get("assignments") || "[]");
     } catch {
       return [];
     }

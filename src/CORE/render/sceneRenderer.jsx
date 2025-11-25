@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Element from "../basic-elements/Element";
 import { useScale } from "./useScale";
 import { useSceneLoader } from "../config-parser/useSceneLoader";
 import { BASE_WIDTH, BASE_HEIGHT } from "./constants";
 import { animations } from "../animation-library/animations";
-import MotionWrapper from "../basic-elements/MotionWrapper";
 import { stateManager } from "../managers/stateManager";
 import { onEvent } from "../events/eventBus";
 import {UIController} from "./UIController";

@@ -81,6 +81,10 @@ export const UIController = {
             if (!file) throw new Error("No se recibió archivo");
 
             const result = await submitAssignment(action.assignmentId, file);
+            
+            const assignments = stateManager.get("assignments") || {};
+            assignments[id] = { status: "submitted" };
+            stateManager.set("assignments", assignments);
 
             emitEvent("success:upload_file_" + action.id);
             return result;

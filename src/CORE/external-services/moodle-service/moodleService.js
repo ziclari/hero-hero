@@ -1,5 +1,5 @@
 import { moodleApi, setAccessToken } from "./moodleApi";
-
+import { stateManager } from "../../managers/stateManager";
 /**
  * Login de usuario (el backend se encarga de comunicarse con Moodle)
  */
@@ -50,7 +50,7 @@ export async function refreshSession() {
  * Obtener tareas del curso desde el backend
  */
 export async function getAssignments() {
-  const cached = sessionStorage.getItem("assignments");
+  const cached = stateManager.get("assignments");
 
   // Si hay algo en caché, intenta usarlo
   if (cached) {
@@ -80,7 +80,7 @@ export async function getAssignments() {
     });
 
     const assignments = data.assignments || [];
-    sessionStorage.setItem("assignments", JSON.stringify(assignments));
+    stateManager.set("assignments", assignments)
     return assignments;
   } catch (error) {
     console.error("Error al consultar tareas:", error);

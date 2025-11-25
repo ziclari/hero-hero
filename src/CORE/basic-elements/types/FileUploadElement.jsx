@@ -1,85 +1,103 @@
 import React, { useState, useEffect } from "react";
 import { onEvent } from "../../events/eventBus";
 import { getPath } from "../../config-parser/getPath";
+import { stateManager } from "../../managers/stateManager";
 
 export default function FileUploadElement({
-  action,
-  onAction,
+  action,      // "upload_file"
+  onAction,    // UIController
   className,
   background,
   icon,
   text,
   id,
 }) {
+
   const [isLoading, setIsLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [assignmentId, setAssignmentId] = useState("");
 
-  const findAssignment = (name) => {
-    const stored = sessionStorage.getItem("assignments");
-    if (!stored) return null;
+  // --------------------------
+  // Buscar assignment según el JSON recibido de Moodle
+  // --------------------------
+  const findAssignment = (needle) => {
+    const list = stateManager.get("assignments"); // array de Moodle
+
+    if (!Array.isArray(list)) return null;
+
     try {
-      const assignments = JSON.parse(stored);
-      const found = assignments.find((a) => a.name && a.name.includes(name));
-      return found;
+      // Coincidencia exacta
+      let found = list.find((a) => a.name === needle);
+      if (found) return found;
+
+      // Coincidencia parcial
+      found = list.find((a) => a.name && a.name.includes(needle));
+      return found || null;
     } catch {
       return null;
     }
   };
 
-  useEffect(() => {
-    const unsubSuccess = onEvent("success:upload_file", () => {
-      // Deshabilita visualmente
-      setIsDisabled(true);
+  // --------------------------
+  // Sincroniza UI con el estado
+  // --------------------------
+  const syncFromStateManager = () => {
+    const assignment = findAssignment(id);
 
-      // Actualiza el assignment en sessionStorage
-      const stored = sessionStorage.getItem("assignments");
-      if (stored) {
-        try {
-          const assignments = JSON.parse(stored);
-          const updated = assignments.map((a) =>
-            a.name && a.name.includes(id)
-              ? { ...a, submissionstatus: "submitted" }
-              : a
-          );
-          sessionStorage.setItem("assignments", JSON.stringify(updated));
-          //console.log(`Estado de ${id} actualizado a 'submitted'`);
-        } catch (err) {
-          console.error(
-            "Error actualizando assignments en sessionStorage",
-            err
-          );
-        }
-      }
+    if (!assignment) {
+      setIsDisabled(false);
+      return false;
+    }
+
+    if (assignment.submissionstatus === "submitted") {
+      setIsDisabled(true);
+      return true;
+    }
+
+    setIsDisabled(false);
+    return false;
+  };
+
+  useEffect(() => {
+    // Valida estado inicial
+    syncFromStateManager();
+
+    const unsubSuccess = onEvent(`success:upload_file_${id}`, () => {
+      setIsDisabled(true);
+      setIsLoading(false);
     });
 
-    const unsubStart = onEvent("upload_file", () => setIsDisabled(false));
+    const unsubStart = onEvent(`upload_file_${id}`, () => {
+      setIsLoading(true);
+      setIsDisabled(false);
+    });
 
-    const assignment = findAssignment(id);
-    setAssignmentId(assignment ? assignment.id : null);
-    if (assignment && assignment.submissionstatus === "submitted") {
-      setIsDisabled(true);
-      onAction(`show:boton_${id}`);
-    } else {
-      onAction(`hide:boton_${id}`);
-    }
+    const unsubError = onEvent(`error:upload_file_${id}`, () => {
+      setIsLoading(false);
+    });
 
     return () => {
       unsubSuccess();
       unsubStart();
+      unsubError();
     };
   }, []);
 
+  // --------------------------
+  // Upload Handler
+  // --------------------------
   const handleUpload = async (file) => {
-    if (!file || !onAction || isDisabled) return;
+    if (!file || isDisabled) return;
+
     setIsLoading(true);
+
+    const assignment = findAssignment(id); // obtiene el assignment real de Moodle
 
     try {
       await onAction({
         type: action,
+        id,                   // id textual del YAML
+        assignmentId: assignment?.id, // id real de Moodle
         __file: file,
-        assignmentId,
-        id,
       });
     } finally {
       setIsLoading(false);
@@ -99,13 +117,14 @@ export default function FileUploadElement({
 
   const handleDragOver = (event) => event.preventDefault();
 
+  // --------------------------
+  // UI
+  // --------------------------
   return (
     <div
       className={`relative ${
         className || "border-2 border-dashed border-gray-400"
-      } ${
-        isDisabled ? "opacity-50 cursor-not-allowed" : ""
-      } bg-contain bg-center bg-no-repeat`}
+      } ${isDisabled ? "opacity-50 cursor-not-allowed" : ""} bg-contain bg-center bg-no-repeat`}
       style={{
         backgroundImage: background ? `url(${getPath(background)})` : "",
       }}
@@ -128,7 +147,9 @@ export default function FileUploadElement({
         ) : (
           <br />
         )}
+
         <span className={icon ? "p-4" : "mt-16 p-4"}>{text}</span>
+
         <input
           type="file"
           className="hidden"
