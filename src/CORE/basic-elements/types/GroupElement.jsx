@@ -1,14 +1,14 @@
 import React from "react";
 import Element from "../Element";
 import MotionWrapper from "../MotionWrapper";
-
+import { computeLayout } from "../../render/computeLayout";
+import { isVisible } from "../../render/isVisible";
+import { resolveElement } from "../../render/resolveElement";
 export default function GroupElement({
   elements,
   assets,
-  background,
-  action,
-  onAction,
   className,
+  onAction,
   activeElements,
   setActiveElements,
 }) {
@@ -23,46 +23,27 @@ export default function GroupElement({
   return (
     <div
       className={classes}
-      style={{
-        backgroundImage: background ? `url(${background})` : ""
-      }}
-      onClick={() => onAction?.(action)}
+      onClick={(e) => e.stopPropagation()}
     >
-      {elements.map((child, i) => {
-        const isVisible =
-          activeElements?.[child.id] !== false &&
-          (activeElements?.[child.id] ||
-            child.visible === undefined ||
-            child.visible === true);
+      {elements.map((el, i) => {
+        if (!isVisible(el, activeElements)) return null;
 
-        if (!isVisible) return null;
+        const resolved = resolveElement(el, assets);
+        const layout = computeLayout(resolved);
 
         return (
           <MotionWrapper
-            key={`group-${i}`}
-            animate={child.animate}
-            delay={child.delay}
+            key={resolved.id || i}
+            animate={el.animate}
+            delay={el.delay ?? el.animate?.delay}
+            style={layout}
           >
             <Element
-              key={child.id || i}
-              {...child}
+              {...resolved}
               assets={assets}
-              // resolución automática de paths
-              src={assets?.[child.src] || child.src}
-              img={assets?.[child.img] || child.img}
-              icon={assets?.[child.icon] || child.icon}
-              button={
-                child.button
-                  ? {
-                      ...child.button,
-                      icon: assets?.[child.button.icon] || child.button.icon,
-                    }
-                  : undefined
-              }
-              background={assets?.[child.background] || child.background}
               activeElements={activeElements}
               setActiveElements={setActiveElements}
-              onAction={(action) => onAction?.(action, child.id)}
+              onAction={(action) => onAction?.(action, resolved.id)}
             />
           </MotionWrapper>
         );

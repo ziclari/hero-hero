@@ -43,6 +43,9 @@ export default function AudioElement({
         setIsPlaying(true);
       });
     }
+    waveSurferRef.current.on("pause", () => {
+      setIsPlaying(false);
+    });
 
     waveSurferRef.current.on("finish", () => {
       setIsPlaying(false);

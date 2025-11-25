@@ -10,6 +10,7 @@ import { stateManager } from "../managers/stateManager";
 import { onEvent } from "../events/eventBus";
 import {UIController} from "./UIController";
 import VideoModal from "../basic-elements/types/VideoModalElement";
+import GroupElement from "../basic-elements/types/GroupElement";
 
 export default function SceneRenderer({ initialScene }) {
   const scale = useScale(BASE_WIDTH, BASE_HEIGHT);
@@ -144,59 +145,13 @@ export default function SceneRenderer({ initialScene }) {
               key={slide.id}
               {...(animations[slide?.animate] || animations.fade)}
             >
-              {slide.elements.map((el, i) => {
-                const visibleByEvent = activeElements[el.id] === true;
-                const visibleByDefault =
-                  el.visible === undefined || el.visible === true;
-                const isVisible = visibleByEvent || visibleByDefault;
-
-                if (!isVisible) return null;
-
-                const baseStyle = {
-                  position: el.position || "absolute",
-                  top: el.top,
-                  left: el.left,
-                  bottom: el.bottom,
-                  right: el.right,
-                  width: el.width,
-                  height: el.height,
-                  zIndex: el.zIndex,
-                  ...el.style,
-                };
-
-                return (
-                  <MotionWrapper
-                    key={"motion-" + i}
-                    animate={el.animate}
-                    delay={el.delay || el.animate?.delay}
-                    style={baseStyle}
-                  >
-                    <Element
-                      {...el}
-                      src={scene.assetsIndex?.[el.src] || el.src}
-                      img={scene.assetsIndex?.[el.img] || el.img}
-                      icon={scene.assetsIndex?.[el.icon] || el.icon}
-                      button={
-                        el.button
-                          ? {
-                              ...el.button,
-                              icon:
-                                scene.assetsIndex?.[el.button.icon] ||
-                                el.button.icon,
-                            }
-                          : undefined
-                      }
-                      background={
-                        scene.assetsIndex?.[el.background] || el.background
-                      }
-                      assets={scene.assetsIndex}
-                      activeElements={activeElements}
-                      setActiveElements={setActiveElements}
-                      onAction={(action) => onAction(action, el.id)}
-                    />
-                  </MotionWrapper>
-                );
-              })}
+            <GroupElement
+              elements={slide.elements}
+              assets={scene.assetsIndex}
+              activeElements={activeElements}
+              setActiveElements={setActiveElements}
+              onAction={onAction}
+            />
             </motion.div>
           </AnimatePresence>
 

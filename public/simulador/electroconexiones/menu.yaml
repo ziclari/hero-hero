@@ -69,17 +69,17 @@ scene:
   assets:
     images:
       background_1:
-        src: "background/background1.jpeg"
+        src: "src/background/background1.jpeg"
       background_2:
-        src: "background/background2.jpeg"
+        src: "src/background/background2.jpeg"
       card_menu_1:
-        src: "menu/primera_activa.png"
+        src: "src/menu/primera_activa.png"
       card_menu_2:
-        src: "menu/segunda_activa.png"
+        src: "src/menu/segunda_activa.png"
       card_menu_3:
-        src: "menu/tercera_activa.png"
+        src: "src/menu/tercera_activa.png"
       card_menu_4:
-        src: "menu/cuarta_activa.png"
+        src: "src/menu/cuarta_activa.png"
     audios:
       next:
-        src: "audios/audio2.mpga"
+        src: "src/audios/audio2.mpga"

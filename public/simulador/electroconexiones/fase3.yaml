@@ -17,7 +17,7 @@ scene:
           left: 200
           top: 50
           height: 950
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "dialog"
           delay: 0.8
@@ -69,7 +69,7 @@ scene:
             - Impacto en el posicionamiento de marca.
             - Perfil y expectativas de los compradores industriales.
 
-          className: "text-5xl max-w-8xl text-white font-helvetica-condensed leading-[1.2]"
+          className: "EndScreenText"
         - type: "button"
           variant: "primary"
           text:  "Siguiente"
@@ -98,7 +98,7 @@ scene:
             - Justificación basada en el tipo de producto, el perfil del país, destino y las
               capacidades actuales de la empresa.
             - Principales riesgos y beneficios de la estrategia propuesta.
-          className: "text-5xl max-w-8xl text-white font-helvetica-condensed leading-[1.2]"
+          className: "EndScreenText"
 
         - type: "button"
           variant: "primary"
@@ -120,12 +120,12 @@ scene:
           top: 150
           left: 700
           content: "Fin de la Fase 3"
-          className: "text-7xl text-center text-white font-helvetica-condensed leading-[1.2]"
+          className: "EndScreenTitle"
         - type: "text"
           top: 300
           left: 300
           content: "Han pasado 24 horas desde que entregaste tu propuesta al Director general. La recomendación sobre el método de entrada fue recibida, revisada y enviada directamente al equipo jurídico y comercial para su validación."
-          className: "text-5xl text-center  max-w-7xl text-white font-helvetica-condensed leading-[1.2]"
+          className: "EndScreenText"
         - type: "button"
           variant: "primary"
           text:  "Siguiente"
@@ -137,13 +137,13 @@ scene:
   assets:
     images:
       background_1:
-        src: "background/background1.jpeg"
+        src: "src/background/background1.jpeg"
       background_2:
-        src: "background/background2.jpeg"
+        src: "src/background/background2.jpeg"
       chica:
-        src: "personajes/chica.png"
+        src: "src/personajes/chica.png"
       chica_video:
-        src: "personajes/chica_video.png"
+        src: "src/personajes/chica_video.png"
 
     videos:
       fase3_1_video:
@@ -152,7 +152,7 @@ scene:
 
     audios:
       next:
-        src: "audios/audio2.mpga"
+        src: "src/audios/audio2.mpga"
 
   events:
     - on: "end:fase3_1_video"

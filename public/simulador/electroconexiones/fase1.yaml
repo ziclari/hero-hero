@@ -14,7 +14,7 @@ scene:
           top: 0
           left: 0
           height: 1200
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "image"
           animate:
@@ -26,7 +26,7 @@ scene:
           left: 850
           width: 120
           height: 120
-          className: " cursor-pointer"
+          className: " PunteroClickeable"
           action:
             - "play_sound:notification"
             - "next_slide"
@@ -43,14 +43,14 @@ scene:
           top: 0
           left: 0
           height: 1200
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "image"
           src: "luis_mendez"
           top: 35
           left: 177
           width: 1455
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "text"
           top: 150
@@ -59,7 +59,7 @@ scene:
             De: Lic. Luis Méndez, Director General
             Para: Consultor internacional
             Asunto: Asignación individual urgente - Proyecto de expansión internacional
-          className: "text-xl font-helvetica-condensed leading-none"
+          className: "TextoMailEncabezado"
 
         - type: "text"
           top: 240
@@ -80,7 +80,7 @@ scene:
             Deberás de seleccionar el país que ofrece la mejor oportunidad para la exportación de nuestros arneses, hilos y cables automotrices. Necesitas aplicar los criterios de segmentación internacional, evaluar los perfiles de los decisores B2B y proponer de manera preliminar una mezcla de marketing.
 
             Para cualquier duda o retroalimentación directa sobre los criterios y alcances del análisis, por favor contacta a la Lic. Mariana Ruíz, Directora de Comercialización, quién será tu enlace operativo en esta fase:
-          className: "text-xl  leading-none"
+          className: "Comentario"
 
         - type: "text"
           top: 610
@@ -91,7 +91,7 @@ scene:
             Directora de Comercialización
             m.ruiz@electroconexiones.com
             +52 462 123 4567 (ext. 203).
-          className: "text-xl text-gray-400 italic leading-none"
+          className: "TextoMailFirma"
 
         - type: "text"
           top: 700
@@ -102,7 +102,7 @@ scene:
 
             Quedo atento a tu informe.
             Saludos cordiales,
-          className: "text-xl  leading-none"
+          className: "Comentario"
 
         - type: "text"
           top: 820
@@ -112,7 +112,7 @@ scene:
             Luis Méndez
             Director General
             Electro Conexiones del Bajío S. A. de C. V.
-          className: "text-xl text-gray-400 italic leading-none"
+          className: "TextoMailFirma"
 
         - type: "button"
           variant: "primary"
@@ -137,25 +137,25 @@ scene:
           top: 35
           left: 100
           width: 1700
-          className: "object-contain"
+          className: "ModoContenido"
         - type: "text"
           top: 70
           left: 230
           content: "Mariana Ruiz"
-          className: "text-4xl"
+          className: "TituloChat"
 
         - type: "text"
           top: 850
           left: 220
           content: "Hola"
-          className: "text-4xl"
+          className: "TituloChat"
 
         - type: "text"
           top: 960
           right: 120
           width: 200
           content: "Dale clic para enviar mensaje"
-          className: "text-3xl text-white text-center"
+          className: "InstruccionBotonChat"
 
         - type: "image"
           src: "enviar"
@@ -163,7 +163,7 @@ scene:
           right: 10%
           width: 70
           height: 70
-          className: "object-contain cursor-pointer clickable"
+          className: "IconoEnvioChat clickable"
           animate: ["slideUp", "heartbeat"]
           action:
             - "play_sound:next"
@@ -182,18 +182,18 @@ scene:
           top: 35
           left: 100
           width: 1700
-          className: "object-contain"
+          className: "ModoContenido"
         - type: "text"
           top: 70
           left: 230
           content: "Mariana Ruiz"
-          className: "text-4xl"
+          className: "TituloChat"
 
         - type: "text"
           top: 150
           right: 220
           content: "Hola"
-          className: "text-3xl bg-gray-100 px-16 py-4 rounded-l-4xl rounded-tr-4xl"
+          className: "BurbujaMensajePropio"
 
         - type: "text"
           top: 200
@@ -219,7 +219,7 @@ scene:
               position: "relative"
               text: "Partes y accesorios de vehículos automotores"
               href: "https://www.economia.gob.mx/datamexico/es/profile/product/parts-and-accessories-of-motor-vehicles?redirect=true"
-              className: "underline text-brand-light-blue capitalize"
+              className: "EnlaceChat"
         - type: "group"
           top: 455
           left: 220
@@ -234,7 +234,7 @@ scene:
               position: "relative"
               text: "T-MEC"
               href: "https://www.up.edu.mx/noticias/expertos-up/como-el-t-mec-impulsa-el-emprendimiento-y-la-expansion-de-pymes/#:~:text=El%20T%2DMEC%20no%20solo,impacto%20en%20el%20mundo%20empresarial"
-              className: "underline text-brand-light-blue capitalize"
+              className: "EnlaceChat"
 
         - type: "text"
           top: 565
@@ -264,7 +264,7 @@ scene:
           right: 10%
           width: 70
           height: 70
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "button"
           variant: "primary"
@@ -293,11 +293,11 @@ scene:
           top: 130
           right: 100
           width: 1100
-          className: "bg-gradient-to-r from-transparent to-brand-dark-blue py-8 px-16 rounded-4xl"
+          className: "FondoGrupoMensaje1"
           elements:
             - type: "text"
               position: "relative"
-              className: "text-white text-3xl"
+              className: "TextoGrupoPrincipal"
               content: |
                 El Comité de Estrategia Internacional ha definido que necesitamos una tabla comparativa de los cuatro mercados: Estados Unidos, Canadá, China y Corea del Sur con las variables B2B en sus tres categorías.
 
@@ -306,7 +306,7 @@ scene:
                 Quedo atenta a cualquier duda.
             - type: "text"
               position: "relative"
-              className: "text-gray-300 text-3xl"
+              className: "TextoGrupoSecundario"
               content: |
 
                 — Lic. Mariana Ruiz
@@ -318,21 +318,21 @@ scene:
               height: 250
               position: "relative"
               text: "Suelta aquí tus documentos o haz click para buscar en tu equipo"
-              className: "w-fit mx-auto my-4 rounded-lg p-8 text-2xl text-gray-300"
+              className: "AreaSubirArchivo"
               action: "upload_file"
 
             - id: "mensaje_exito_1"
               type: "text"
               position: "relative"
               content: "Documento enviado con éxito"
-              className: "text-green-200 text-3xl text-center"
+              className: "MensajeExito"
               visible: false
 
             - id: "mensaje_error_1"
               type: "text"
               position: "relative"
               content: "No se pudo enviar el documento"
-              className: "text-red-200 text-3xl text-center"
+              className: "MensajeError"
               visible: false
 
         - id: "boton_TAREA_APP_1"
@@ -366,20 +366,20 @@ scene:
           left: 400
           width: 1100
           height: 500
-          className: "bg-gradient-to-l from-transparent to-brand-dark-blue py-16 px-16 rounded-4xl  flex flex-col justify-center font-helvetica-condensed"
+          className: "AudioGroupContainer"
           elements:
             - type: "text"
               position: "relative"
               width: 520
-              className: "text-center text-white text-5xl max-w-2xl"
+              className: "TituloAudio"
               content: |
                 Lic. Mariana Ruiz, Directora de Comercialización
             - type: "audio"
               position: "relative"
-              src: "audios/audio1.mp3"
+              src: "first"
               autoplay: true
               loop: false
-              className: "my-6 w-full max-w-xl"
+              className: "ReproductorAudio"
               action: "audio_finished"
 
         - id: "audio_siguiente"
@@ -409,7 +409,7 @@ scene:
           left: 200
           height: 950
           zIndex: 10
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "dialog"
           delay: 0.8
@@ -459,7 +459,7 @@ scene:
              - Canal de distribución sugerido, en función del perfil de nuestros clientes industriales.
              - Requisitos técnicos o regulatorios que debamos atender para operar en el país destino.
              - Acciones de promoción B2B: al menos tres iniciativas concretas orientadas al posicionamiento de nuestra oferta.
-          className: "text-4xl text-white font-helvetica-condensed leading-[1.2]"
+          className: "TextoInformeEjecutivo"
 
         - type: "fileupload"
           id: "TAREA_APP_2"
@@ -468,7 +468,7 @@ scene:
           top: 620
           left: 580
           text: "Suelta aquí tus documentos o haz click para buscar en tu equipo"
-          className: "w-fit mx-auto my-4 rounded-lg p-8 text-2xl text-gray-300 "
+          className: "AreaSubirArchivo "
           action: "upload_file"
 
         - id: "mensaje_exito_2"
@@ -476,7 +476,7 @@ scene:
           top: 900
           left: 620
           content: "Documento enviado con éxito"
-          className: "text-green-200 text-3xl text-center"
+          className: "MensajeExito"
           visible: false
 
         - id: "mensaje_error_2"
@@ -484,7 +484,7 @@ scene:
           top: 900
           left: 620
           content: "No se pudo enviar el documento"
-          className: "text-red-200 text-3xl text-center"
+          className: "MensajeError"
           visible: false
 
         - id: "boton_TAREA_APP_2"
@@ -510,7 +510,7 @@ scene:
           left: 440
           content: |
             La primera fase ha llegado a su fin, el comité ha recibido tu análisis completo.
-          className: "text-5xl text-white text-center font-helvetica-condensed leading-[1.2] max-w-5xl"
+          className: "TituloFaseFinal"
         - type: "button"
           variant: "primary"
           text: ""
@@ -533,7 +533,7 @@ scene:
           left: 440
           content: |
             La primera fase ha llegado a su fin, el comité ha recibido tu análisis completo.
-          className: "text-5xl text-white text-center font-helvetica-condensed leading-[1.2] max-w-5xl"
+          className: "TituloFaseFinal"
         - type: "button"
           variant: "primary"
           text: ""
@@ -548,14 +548,14 @@ scene:
           left: 540
           content: |
             <strong class="font-helvetica-condensed ">Director general</strong>: Gracias a tu trabajo, Con base en lo que compartiste, continuaremos con el diseño de la estrategia de entrada al mercado seleccionado. El equipo revisará los elementos clave para integrarlos en la siguiente etapa del proyecto.
-          className: "text-3xl leading-[1.2] max-w-5xl bg-white px-6 py-4 rounded-r-4xl rounded-tl-4xl"
+          className: "BurbujaDirectorFinal"
         - type: "image"
           src: "chico_azul"
           top: 450
           left: 300
           height: 200
           width: 200
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "button"
           variant: "primary"
@@ -568,29 +568,29 @@ scene:
   assets:
     images:
       background_1:
-        src: "background/background1.jpeg"
+        src: "src/background/background1.jpeg"
       background_2:
-        src: "background/background2.jpeg"
+        src: "src/background/background2.jpeg"
       chica:
-        src: "personajes/chica.png"
+        src: "src/personajes/chica.png"
       chica_azul:
-        src: "personajes/chica_azul.png"
+        src: "src/personajes/chica_azul.png"
       chica_video:
-        src: "personajes/chica_video.png"
+        src: "src/personajes/chica_video.png"
       subir_archivo:
-        src: "interactivos/subir_archivo.png"
+        src: "src/interactivos/subir_archivo.png"
       computadora:
-        src: "background/computadora.png"
+        src: "src/background/computadora.png"
       notificacion:
-        src: "interactivos/notificacion.png"
+        src: "src/interactivos/notificacion.png"
       luis_mendez:
-        src: "chats/luisMendez.png"
+        src: "src/chats/luisMendez.png"
       chat_personal:
-        src: "chats/chatPersonal.png"
+        src: "src/chats/chatPersonal.png"
       enviar:
-        src: "interactivos/enviar.png"
+        src: "src/interactivos/enviar.png"
       chico_azul:
-        src: "personajes/chico_azul.png"
+        src: "src/personajes/chico_azul.png"
 
     videos:
       end_video:
@@ -599,9 +599,11 @@ scene:
 
     audios:
       notification:
-        src: "audios/audio1.mpga"
+        src: "src/audios/audio1.mpga"
       next:
-        src: "audios/audio2.mpga"
+        src: "src/audios/audio2.mpga"
+      first:
+        src: "src/audios/audio1.mp3"
 
   events:
     - on: "success:upload_file_TAREA_APP_1"

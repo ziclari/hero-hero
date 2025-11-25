@@ -55,7 +55,7 @@ scene:
           top: 100
           left: 200
           height: 950
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "dialog"
           delay: 0.8
@@ -89,15 +89,15 @@ scene:
   assets:
     images:
       background_1:
-        src: "background/background1.jpeg"
+        src: "src/background/background1.jpeg"
       background_2:
-        src: "background/background2.jpeg"
+        src: "src/background/background2.jpeg"
       logo_electro:
-        src: "logos/electro_inicio.png"
+        src: "src/logos/electro_inicio.png"
       luis:
-        src: "personajes/chico.png"
+        src: "src/personajes/chico.png"
       luis_video:
-        src: "personajes/chico_video.png"
+        src: "src/personajes/chico_video.png"
 
     videos:
       intro_video:
@@ -106,7 +106,7 @@ scene:
 
     audios:
       next:
-        src: "audios/audio2.mpga"
+        src: "src/audios/audio2.mpga"
 
   events:
     - on: "end:intro_video"

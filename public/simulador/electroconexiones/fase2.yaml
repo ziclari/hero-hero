@@ -16,7 +16,7 @@ scene:
           left: 150
           height: 1000
           width: 1600
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "text"
           top: 120
@@ -25,7 +25,7 @@ scene:
             De: Lic. Mariana Ruiz ‹m.ruiz@electroconexiones.com›
             Para: [Tu nombre]‹consultor@internacional@ebc.edu.mx›
             CC: Luis Méndez ‹l.mendez@electroconexiones.com›
-          className: "text-2xl font-helvetica-condensed leading-none"
+          className: "EmailHeader"
 
         - type: "text"
           top: 220
@@ -47,7 +47,7 @@ scene:
             Quedo atenta a tu propuesta y, como siempre, a tu dispocisión para cualquier consulta.
 
             Saludos cordiales,
-          className: "text-2xl  leading-none"
+          className: "EmailHeader"
 
         - type: "text"
           top: 810
@@ -58,7 +58,7 @@ scene:
             Directora de Comercialización
             m.ruiz@electroconexiones.com
             +52 462 123 4567 (ext. 203).
-          className: "text-2xl text-gray-400 italic leading-none"
+          className: "EmailSignature"
 
         - type: "button"
           variant: "primary"
@@ -89,7 +89,7 @@ scene:
               - Tamaño estimado de la muestra.
               - Por qué esta selección captura con fidelidad el perfil industrial y garantiza la validez de tu análisis.
 
-          className: "text-4xl text-white font-helvetica-condensed leading-[1.2]"
+          className: "TextoInformeEjecutivo"
 
         - type: "fileupload"
           id: "TAREA_APP_3"
@@ -98,7 +98,7 @@ scene:
           top: 500
           left: 580
           text: "Suelta aquí tus documentos o haz click para buscar en tu equipo"
-          className: "w-fit mx-auto my-4 rounded-lg p-8 text-2xl text-gray-300 "
+          className: "AreaSubirArchivo "
           action: "upload_file"
 
         - id: "mensaje_exito_3"
@@ -106,7 +106,7 @@ scene:
           top: 750
           left: 620
           content: "Documento enviado con éxito"
-          className: "text-green-200 text-3xl text-center"
+          className: "MensajeExito"
           visible: false
 
         - id: "mensaje_error_3"
@@ -114,7 +114,7 @@ scene:
           top: 750
           left: 620
           content: "No se pudo enviar el documento"
-          className: "text-red-200 text-3xl text-center"
+          className: "MensajeError"
           visible: false
 
         - id: "boton_TAREA_APP_3"
@@ -141,7 +141,7 @@ scene:
           left: 850
           top: 50
           height: 950
-          className: "object-contain"
+          className: "ModoContenido"
 
         - type: "dialog"
           delay: 0.8
@@ -200,7 +200,7 @@ scene:
               - Implicaciones para nuestra propuesta de valor industrial.
               - Agrega un apartado de recomendaciones al final con al menos tres acciones para la estrategia de entrada B2B en función de los hallazgos.
 
-          className: "bg-gradient-to-l from-transparent to-brand-dark-blue py-8 px-16 rounded-4xl max-w-5xl text-3xl text-white font-helvetica-condensed leading-[1.2]"
+          className: "DialogBoxGradient"
 
         - type: "fileupload"
           id: "TAREA_APP_4"
@@ -209,7 +209,7 @@ scene:
           top: 350
           right: 200
           text: "Suelta aquí tus documentos o haz click para buscar en tu equipo"
-          className: "w-fit mx-auto my-4 rounded-lg p-8 text-2xl text-gray-300 "
+          className: "AreaSubirArchivo "
           action: "upload_file"
 
         - id: "mensaje_exito_4"
@@ -217,7 +217,7 @@ scene:
           top: 600
           right: 200
           content: "Documento enviado con éxito"
-          className: "text-green-200 text-3xl text-center"
+          className: "MensajeExito"
           visible: false
 
         - id: "mensaje_error_4"
@@ -225,7 +225,7 @@ scene:
           top: 600
           right: 200
           content: "No se pudo enviar el documento"
-          className: "text-red-200 text-3xl text-center"
+          className: "MensajeError"
           visible: false
 
         - id: "boton_TAREA_APP_4"
@@ -257,20 +257,20 @@ scene:
           left: 400
           width: 1100
           height: 500
-          className: "bg-gradient-to-l from-transparent to-brand-dark-blue py-16 px-16 rounded-4xl  flex flex-col justify-center font-helvetica-condensed"
+          className: "AudioGroupContainer"
           elements:
             - type: "text"
               position: "relative"
               width: 520
-              className: "text-center text-white text-5xl max-w-2xl"
+              className: "TituloAudio"
               content: |
                 Lic. Mariana Ruiz, Directora de Comercialización
             - type: "audio"
               position: "relative"
-              src: "audios/audio2.mp3"
+              src: "second"
               autoplay: false
               loop: false
-              className: "my-6 w-full max-w-xl"
+              className: "ReproductorAudio"
               action: "audio_finished"
 
         - id: "fase_1_audio_siguiente"
@@ -303,7 +303,7 @@ scene:
             4. Correlaciona cambios de sentimiento con eventos o lanzamientos del sector.
             5. Sube tu informe para que el comité lo analice y lo integremos al informe final.
 
-          className: "text-4xl text-white font-helvetica-condensed leading-[1.2]"
+          className: "TextoInformeEjecutivo"
 
         - type: "fileupload"
           id: "TAREA_APP_5"
@@ -312,7 +312,7 @@ scene:
           top: 500
           left: 580
           text: "Suelta aquí tus documentos o haz click para buscar en tu equipo"
-          className: "w-fit mx-auto my-4 rounded-lg p-8 text-2xl text-gray-300 "
+          className: "AreaSubirArchivo "
           action: "upload_file"
 
         - id: "mensaje_exito_5"
@@ -320,7 +320,7 @@ scene:
           top: 750
           left: 620
           content: "Documento enviado con éxito"
-          className: "text-green-200 text-3xl text-center"
+          className: "MensajeExito"
           visible: false
 
         - id: "mensaje_error_5"
@@ -328,7 +328,7 @@ scene:
           top: 750
           left: 620
           content: "No se pudo enviar el documento"
-          className: "text-red-200 text-3xl text-center"
+          className: "MensajeError"
           visible: false
 
         - id: "boton_TAREA_APP_5"
@@ -352,12 +352,12 @@ scene:
           top: 150
           left: 700
           content: "Fin de la Fase 2"
-          className: "text-7xl text-center text-white font-helvetica-condensed leading-[1.2]"
+          className: "EndScreenTitle"
         - type: "text"
           top: 300
           left: 300
           content: "Ahora cuentas con una propuesta de investigación integral que combina métodos cualitativos y cuantitativos adaptados al país seleccionado. Tus hallazgos serán la base para definir la estrategia de entrada real y preparar al equipo comercial para interactuar con los clientes industriales del país destino."
-          className: "text-5xl text-center  max-w-7xl text-white font-helvetica-condensed leading-[1.2]"
+          className: "EndScreenText"
         - type: "button"
           variant: "primary"
           text: "Siguiente"
@@ -369,17 +369,17 @@ scene:
   assets:
     images:
       background_2:
-        src: "background/background2.jpeg"
+        src: "src/background/background2.jpeg"
       chica:
-        src: "personajes/chica.png"
+        src: "src/personajes/chica.png"
       chica_azul:
-        src: "personajes/chica_azul.png"
+        src: "src/personajes/chica_azul.png"
       chica_video:
-        src: "personajes/chica_video.png"
+        src: "src/personajes/chica_video.png"
       subir_archivo:
-        src: "interactivos/subir_archivo.png"
+        src: "src/interactivos/subir_archivo.png"
       mariana_ruiz:
-        src: "chats/MarianaRuiz.png"
+        src: "src/chats/MarianaRuiz.png"
 
     videos:
       fase1_1_video:
@@ -388,7 +388,9 @@ scene:
 
     audios:
       next:
-        src: "audios/audio2.mpga"
+        src: "src/audios/audio2.mpga"
+      second:
+        src: "src/audios/audio2.mp3"
 
   events:
     - on: "success:upload_file_TAREA_APP_3"

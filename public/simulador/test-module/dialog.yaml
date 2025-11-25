@@ -67,7 +67,7 @@ scene:
           flip: false
           className: "dialog-theme-dark"
 
-        - id: "dialog_intro"
+        - id: "dialog_intro2"
           type: "dialog"
           title: "Bienvenido agente"
           text: "Tienes una nueva misión.\nPrepárate."
