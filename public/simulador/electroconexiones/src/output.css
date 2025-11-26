@@ -12,6 +12,7 @@
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-xl: 36rem;
@@ -32,6 +33,7 @@
     --text-7xl--line-height: 1;
     --radius-lg: 0.5rem;
     --radius-4xl: 2rem;
+    --blur-sm: 8px;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
     --font-helvetica: "HelveticaNeueThin", sans-serif;
@@ -474,7 +476,40 @@
   line-height: var(--tw-leading, var(--text-2xl--line-height));
   color: var(--color-white);
 }
-.ModalContentBackground {
+.modal-overlay {
+  background-color: color-mix(in srgb, #000 60%, transparent);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--color-black) 60%, transparent);
+  }
+  --tw-backdrop-blur: blur(var(--blur-sm));
+  -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+}
+.modal-close {
+  position: absolute;
+  top: calc(var(--spacing) * 3);
+  right: calc(var(--spacing) * 3);
+  display: flex;
+  height: calc(var(--spacing) * 8);
+  width: calc(var(--spacing) * 8);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(infinity * 1px);
+  background-color: color-mix(in srgb, #fff 30%, transparent);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--color-white) 30%, transparent);
+  }
+  &:hover {
+    @media (hover: hover) {
+      background-color: color-mix(in srgb, #fff 50%, transparent);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-white) 50%, transparent);
+      }
+    }
+  }
+}
+.modal-container {
   height: 650px;
   width: 700px;
   background-color: var(--color-brand-dark-blue);
@@ -880,6 +915,42 @@ h1, h2, h3, h4, h5 {
   inherits: false;
   initial-value: 100%;
 }
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-border-style {
   syntax: "*";
   inherits: false;
@@ -898,6 +969,15 @@ h1, h2, h3, h4, h5 {
       --tw-gradient-from-position: 0%;
       --tw-gradient-via-position: 50%;
       --tw-gradient-to-position: 100%;
+      --tw-backdrop-blur: initial;
+      --tw-backdrop-brightness: initial;
+      --tw-backdrop-contrast: initial;
+      --tw-backdrop-grayscale: initial;
+      --tw-backdrop-hue-rotate: initial;
+      --tw-backdrop-invert: initial;
+      --tw-backdrop-opacity: initial;
+      --tw-backdrop-saturate: initial;
+      --tw-backdrop-sepia: initial;
       --tw-border-style: solid;
     }
   }

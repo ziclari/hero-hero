@@ -122,8 +122,14 @@
 .CalendarTextInstruction{
   @apply text-white text-2xl text-center;
 }
-.ModalContentBackground{
-  @apply w-[700px] h-[650px] bg-brand-dark-blue p-16;
+.modal-overlay{
+  @apply bg-black/60 backdrop-blur-sm;
+}
+.modal-close{
+  @apply color-white absolute top-3 right-3 p-4 flex items-center justify-center rounded-full bg-white/30 hover:bg-white/50 cursor-pointer;
+}
+.modal-container{
+  @apply w-[700px] h-[650px] bg-brand-dark-blue p-16 color-white;
 }
 .ModalTitle{
   @apply text-white text-5xl font-helvetica-condensed mb-6;

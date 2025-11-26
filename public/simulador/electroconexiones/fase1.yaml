@@ -4,10 +4,50 @@ scene:
   slides:
     - id: "fase1-1"
       elements:
-        - type: "menuInteractive"
+      #  - type: "menuInteractive"
+      #    animate: "none"
+      #    width: 1920
+      #    height: 1080
+        - type: menuInteractive
+          className: "menu-hud"
+          status: "interaccion"
           animate: "none"
           width: 1920
           height: 1080
+
+          layout:
+            visibility:
+              top: true
+              bottom: false
+
+            top:
+              - type: button
+                icon: src/interactivos/enviar.png
+                alt: "Reproducir"
+                action:
+                  type: go_to_scene
+                  id: escena_2
+
+              - type: text
+                content: "Fase 1"
+
+            bottom:
+              - type: button
+                icon: assets/icons/home.svg
+                className: "btn-home"
+                action:
+                  type: go_to_scene
+                  id: inicio
+
+            left:
+              - type: image
+                src: assets/ui/avatar.png
+                alt: "Avatar"
+
+            floating:
+              - type: text
+                content: "Puntaje: 120"
+                className: "score-badge"
 
         - type: "image"
           src: "computadora"

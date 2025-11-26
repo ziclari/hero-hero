@@ -8,7 +8,9 @@ export default function ModalElement({
   assets,
   className,
   background,
-  onAction
+  onAction,
+  activeElements,
+  setActiveElements
 }) {
   const overlayClasses = [
     "modal-overlay",      // capa oscura
@@ -49,6 +51,8 @@ export default function ModalElement({
           <GroupElement
             elements={elements}
             assets={assets}
+            activeElements={activeElements}
+            setActiveElements={setActiveElements}
             onAction={onAction}
           />
         </div>
