@@ -917,6 +917,14 @@ h1, h2, h3, h4, h5 {
 .menu-item {
   pointer-events: auto;
 }
+.group {
+  pointer-events: none;
+}
+
+.group > * {
+  pointer-events: auto;
+}
+
 @property --tw-leading {
   syntax: "*";
   inherits: false;

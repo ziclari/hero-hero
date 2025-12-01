@@ -10,7 +10,6 @@ import FileUploadElement from "./types/FileUploadElement";
 import GroupElement from "./types/GroupElement";
 import DialogElement from "./types/DialogElement";
 import ModalElement from "./types/ModalElement";
-import MenuInteractiveElement from "./types/MenuInteractiveElement";
 
 
 const typeMap = {
@@ -25,7 +24,6 @@ const typeMap = {
   modal: ModalElement,
 
   fileupload: FileUploadElement,
-  menuInteractive: MenuInteractiveElement,
 };
 
 export default function Element({ type, onAction, ...props }) {
@@ -39,5 +37,5 @@ export default function Element({ type, onAction, ...props }) {
   const SpecificElement = typeMap[type];
 
   if (!SpecificElement) return null;
-  return <SpecificElement key={type + props.id} {...props} {...commonProps} />;
+  return <SpecificElement key={type + props.id} {...props} {...commonProps} onAction={onAction} />;
 }

@@ -43,7 +43,8 @@ export default function GroupElement({
               assets={assets}
               activeElements={activeElements}
               setActiveElements={setActiveElements}
-              onAction={(action) => onAction?.(action, resolved.id)}
+              onAction={onAction}
+              action={resolved.action}
             />
           </MotionWrapper>
         );

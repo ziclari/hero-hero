@@ -1,4 +1,5 @@
 export function resolveElement(el, assets) {
+
     return {
       ...el,
       src: assets?.[el.src] || el.src,

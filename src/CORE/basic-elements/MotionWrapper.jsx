@@ -58,7 +58,7 @@ export default function MotionWrapper({ children, animate, delay = 0, style }) {
       animate={controls}
       style={{
         opacity: animate === "none" ? 1 : 0,
-        pointerEvents: animate === "none" ? "auto" : "none",
+        pointerEvents: animate && animate !== "none" ? "none" : "auto",
         ...style,
       }}
     >
