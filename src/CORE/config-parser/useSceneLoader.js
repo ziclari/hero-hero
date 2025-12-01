@@ -57,7 +57,6 @@ export function useSceneLoader(initialScene) {
         const res = await fetch(realpath);
         const text = await res.text();
         const parsed = yaml.load(text);
-        console.log(realpath)
         const sceneData = parsed?.scene || parsed;
 
         if (isCancelled) return;

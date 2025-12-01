@@ -64,7 +64,6 @@ const Button = React.forwardRef(
     },
     ref
   ) => {
-    console.log(imageSrc)
 
     const finalClassName = [
       variant ? `button-${variant}` : null,

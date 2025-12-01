@@ -55,7 +55,7 @@ export const UIController = {
     playSound(id, scene) {
         try {
             const src = scene?.assets?.audios?.[id]?.src || id;
-            const audio = getPath(src); console.log(audio)
+            const audio = getPath(src);
             new Audio(audio).play().catch(() => {});
         } catch {}
     },
