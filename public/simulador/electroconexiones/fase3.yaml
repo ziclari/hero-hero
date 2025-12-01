@@ -258,6 +258,12 @@ scene:
         src: src/personajes/chica.png
       chica_video:
         src: src/personajes/chica_video.png
+      casa:
+        src: src/interactivos/menu.png
+      ebc:
+        src: src/logos/ebc_logo.png
+      electro:
+        src: src/logos/electro.png
     videos:
       fase3_1_video:
         id: fase3_1_video

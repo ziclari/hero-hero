@@ -358,6 +358,12 @@ scene:
         src: "src/interactivos/subir_archivo.png"
       mariana_ruiz:
         src: "src/chats/MarianaRuiz.png"
+      casa:
+        src: "src/interactivos/menu.png"
+      ebc: 
+        src: "src/logos/ebc_logo.png"
+      electro:
+        src: src/logos/electro.png
 
     videos:
       fase1_1_video:

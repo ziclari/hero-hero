@@ -117,6 +117,12 @@ scene:
         src: src/personajes/chico.png
       luis_video:
         src: src/personajes/chico_video.png
+      casa:
+        src: src/interactivos/menu.png
+      ebc:
+        src: src/logos/ebc_logo.png
+      electro:
+        src: src/logos/electro.png
     videos:
       intro_video:
         id: intro_video

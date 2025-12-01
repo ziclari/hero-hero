@@ -411,6 +411,12 @@ scene:
         src: src/chats/calendario.png
       chico_azul:
         src: src/personajes/chico_azul.png
+      casa:
+        src: src/interactivos/menu.png
+      ebc:
+        src: src/logos/ebc_logo.png
+      electro:
+        src: src/logos/electro.png
     audios:
       next:
         src: audios/audio2.mpga
