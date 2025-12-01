@@ -24,7 +24,6 @@
       className: "reveal-border"
       width: 1920
       height: 80
-      zIndex: 10
       top: 950
       left: 20
       elements:
@@ -33,3 +32,4 @@
         animate: slideRight
         delay: 0.5
         className: "base__logo"
+        zIndex: 10

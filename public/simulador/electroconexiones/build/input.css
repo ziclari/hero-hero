@@ -117,7 +117,7 @@
   @apply text-5xl text-center max-w-7xl text-white font-helvetica-condensed leading-[1.2];
 }
 .InstructionText{
-  @apply text-5xl max-w-7xl text-white font-helvetica-condensed leading-[1.2];
+  @apply text-5xl max-w-[1600px] text-white font-helvetica-condensed leading-[1.2] text-left;
 }
 .CalendarTextInstruction{
   @apply text-white text-2xl text-center;
@@ -405,7 +405,7 @@ body {
      /* ==========================
      BASE GENERAL
   ========================== */
-  .menu-interactive  {
+  .base {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -417,13 +417,12 @@ body {
     gap: 1rem;
     padding-bottom: 0.5rem;
     transition: opacity 0.4s ease, transform 0.4s ease;
-    background-color: red;
   }
   
   /* ==========================
        TOP Y BOTTOM
     ========================== */
-  .menu-slot__top {
+  .base__top {
     position: absolute;
     top: 0.5rem;
     left: 0;
@@ -431,7 +430,7 @@ body {
     z-index: 20;
   }
   
-  .menu-slot__bottom {
+  .base__bottom {
     position: absolute;
     bottom: 50px;
     left: 0;
@@ -454,11 +453,6 @@ body {
       transform: translateX(0);
       opacity: 1;
     }
-  }
-  .menu-slot__left {
-    position: fixed;
-    bottom: 50px;
-    z-index: 20;
   }
   /* ==========================
        ELEMENTOS INTERNOS

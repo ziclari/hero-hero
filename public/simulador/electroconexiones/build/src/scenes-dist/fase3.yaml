@@ -30,7 +30,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -39,6 +38,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: image
           src: chica
           delay: 0.8
@@ -102,7 +102,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -111,6 +110,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: text
           top: 150
           left: 150
@@ -126,7 +126,7 @@ scene:
             - Costos asociados.
             - Impacto en el posicionamiento de marca.
             - Perfil y expectativas de los compradores industriales.
-          className: EndScreenText
+          className: InstructionText
         - type: button
           variant: primary
           text: Siguiente
@@ -163,7 +163,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -172,6 +171,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: text
           top: 150
           left: 150
@@ -184,7 +184,7 @@ scene:
             - Justificación basada en el tipo de producto, el perfil del país, destino y las
               capacidades actuales de la empresa.
             - Principales riesgos y beneficios de la estrategia propuesta.
-          className: EndScreenText
+          className: InstructionText
         - type: button
           variant: primary
           text: Siguiente
@@ -221,7 +221,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -230,6 +229,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: text
           top: 150
           left: 700

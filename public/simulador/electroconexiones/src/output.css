@@ -462,7 +462,8 @@
   color: var(--color-white);
 }
 .InstructionText {
-  max-width: var(--container-7xl);
+  max-width: 1600px;
+  text-align: left;
   font-family: var(--font-helvetica-condensed);
   font-size: var(--text-5xl);
   line-height: var(--tw-leading, var(--text-5xl--line-height));
@@ -775,7 +776,7 @@ h1, h2, h3, h4, h5 {
 .button-audio[data-disabled] {
   opacity: 0.5;
 }
-.menu-interactive {
+.base {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -787,16 +788,15 @@ h1, h2, h3, h4, h5 {
   gap: 1rem;
   padding-bottom: 0.5rem;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  background-color: red;
 }
-.menu-slot__top {
+.base__top {
   position: absolute;
   top: 0.5rem;
   left: 0;
   right: 0;
   z-index: 20;
 }
-.menu-slot__bottom {
+.base__bottom {
   position: absolute;
   bottom: 50px;
   left: 0;
@@ -818,11 +818,6 @@ h1, h2, h3, h4, h5 {
     transform: translateX(0);
     opacity: 1;
   }
-}
-.menu-slot__left {
-  position: fixed;
-  bottom: 50px;
-  z-index: 20;
 }
 .base__logo-top {
   width: 75px;
@@ -917,14 +912,6 @@ h1, h2, h3, h4, h5 {
 .menu-item {
   pointer-events: auto;
 }
-.group {
-  pointer-events: none;
-}
-
-.group > * {
-  pointer-events: auto;
-}
-
 @property --tw-leading {
   syntax: "*";
   inherits: false;

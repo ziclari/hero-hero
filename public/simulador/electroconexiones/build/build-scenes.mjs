@@ -5,7 +5,7 @@ import yaml from "js-yaml";        // ← AGREGAR
 import { expandFile } from "./include-resolver.mjs";
 
 const SRC = "./src/scenes-src";
-const OUT = "./src/scenes-dist";
+const OUT = "../";
 
 async function build() {
   await fs.mkdir(OUT, { recursive: true });

@@ -108,7 +108,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -117,6 +116,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: text
           top: 150
           left: 300
@@ -190,7 +190,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -199,6 +198,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: image
           src: chica
           delay: 0.8
@@ -261,7 +261,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -270,6 +269,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: text
           top: 80
           left: 100
@@ -356,7 +356,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -365,6 +364,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: image
           src: chica_azul
           top: 200
@@ -429,7 +429,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -438,6 +437,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: text
           top: 150
           left: 300
@@ -511,7 +511,6 @@ scene:
               className: reveal-border
               width: 1920
               height: 80
-              zIndex: 10
               top: 950
               left: 20
               elements:
@@ -520,6 +519,7 @@ scene:
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
+                  zIndex: 10
         - type: text
           top: 150
           left: 700

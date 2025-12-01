@@ -48,8 +48,8 @@ scene:
         - !include ./menu/normal.yaml
 
         - type: "text"
-          top: 150
-          left: 150
+          top: 80
+          left: 180
           content: |
             Tras revisar los datos proporcionados en la videollamada con la Directora de
             comercialización, el Comité de Estrategia quiere decidir la modalidad de exportación más
@@ -63,7 +63,7 @@ scene:
             - Impacto en el posicionamiento de marca.
             - Perfil y expectativas de los compradores industriales.
 
-          className: "EndScreenText"
+          className: "InstructionText"
         - type: "button"
           variant: "primary"
           text:  "Siguiente"
@@ -89,7 +89,7 @@ scene:
             - Justificación basada en el tipo de producto, el perfil del país, destino y las
               capacidades actuales de la empresa.
             - Principales riesgos y beneficios de la estrategia propuesta.
-          className: "EndScreenText"
+          className: "InstructionText"
 
         - type: "button"
           variant: "primary"
