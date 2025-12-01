@@ -4,7 +4,7 @@ scene:
   slides:
     - id: "fase1-1"
       elements:
-        - !include ./menu/normal.yaml
+        - !include ./menu/normal-ab.yaml
 
         - type: "image"
           src: "computadora"
@@ -30,7 +30,7 @@ scene:
 
     - id: "fase1-2"
       elements:
-        - !include ./menu/normal.yaml
+        - !include ./menu/normal-ab.yaml
 
         - type: "image"
           src: "computadora"
@@ -376,7 +376,7 @@ scene:
     - id: "fase1-7"
       background: "background_1"
       elements:
-        - !include ./menu/normal.yaml
+        - !include ./menu/normal-ab.yaml
 
         - type: "image"
           src: "chica"
@@ -385,7 +385,7 @@ scene:
           top: 50
           left: 200
           height: 950
-          zIndex: 10
+          zIndex: 5
           className: "ModoContenido"
 
         - type: "dialog"
@@ -483,14 +483,14 @@ scene:
             La primera fase ha llegado a su fin, el comité ha recibido tu análisis completo.
           className: "TituloFaseFinal"
         - type: "button"
-          variant: "primary"
-          text: ""
           top: 300
           left: 900
+          imageSrc: "down_arrow"
+          imageAlt: "Flecha abajo"
+          imageClassName: "Icon"
           action:
             - "play_sound:next"
             - "next_slide"
-          buttonType: "icon color"
 
     - id: "fase1-10"
       elements:
@@ -502,15 +502,7 @@ scene:
           content: |
             La primera fase ha llegado a su fin, el comité ha recibido tu análisis completo.
           className: "TituloFaseFinal"
-        - type: "button"
-          variant: "primary"
-          text: ""
-          top: 300
-          left: 900
-          action:
-            - "play_sound:next"
-            - "next_slide"
-          buttonType: "icon color"
+
         - type: "text"
           top: 450
           left: 540
@@ -564,8 +556,9 @@ scene:
       ebc: 
         src: "src/logos/ebc_logo.png"
       electro:
-        src: src/logos/electro.png
-
+        src: "src/logos/electro.png"
+      down_arrow: 
+        src: "src/icons/arrow-down.png"
     videos:
       end_video:
         id: "end_video"

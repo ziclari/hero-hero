@@ -1,6 +1,6 @@
 import { Button as AriaButton } from 'react-aria-components';
 import React from 'react';
-
+import { getPath } from '../../config-parser/getPath';
 /**
  * @typedef {Object} CustomButtonProps
  * @property {'primary' | 'secondary' | 'danger' | string} [variant] - Variante visual.
@@ -64,6 +64,7 @@ const Button = React.forwardRef(
     },
     ref
   ) => {
+    console.log(imageSrc)
 
     const finalClassName = [
       variant ? `button-${variant}` : null,
@@ -93,7 +94,7 @@ const Button = React.forwardRef(
         {/* Imagen inline cuando NO es fondo */}
         {imageSrc && !useAsBackground && (
           <img
-            src={imageSrc}
+            src={getPath(imageSrc)}
             alt={imageAlt || ''}
             className={imageClassName || ''}
           />

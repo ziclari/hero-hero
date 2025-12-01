@@ -31,13 +31,13 @@ scene:
               height: 80
               top: 950
               left: 20
+              zIndex: 10
               elements:
                 - type: image
                   src: electro
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
-                  zIndex: 10
         - type: image
           src: computadora
           top: 0
@@ -90,13 +90,13 @@ scene:
               height: 80
               top: 950
               left: 20
+              zIndex: 10
               elements:
                 - type: image
                   src: electro
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
-                  zIndex: 10
         - type: image
           src: computadora
           top: 0
@@ -547,13 +547,13 @@ scene:
               height: 80
               top: 950
               left: 20
+              zIndex: 10
               elements:
                 - type: image
                   src: electro
                   animate: slideRight
                   delay: 0.5
                   className: base__logo
-                  zIndex: 10
         - type: image
           src: chica
           delay: 0.8
@@ -561,7 +561,7 @@ scene:
           top: 50
           left: 200
           height: 950
-          zIndex: 10
+          zIndex: 5
           className: ModoContenido
         - type: dialog
           delay: 0.8
@@ -719,14 +719,14 @@ scene:
             La primera fase ha llegado a su fin, el comité ha recibido tu análisis completo.
           className: TituloFaseFinal
         - type: button
-          variant: primary
-          text: ""
           top: 300
           left: 900
+          imageSrc: down_arrow
+          imageAlt: Flecha abajo
+          imageClassName: Icon
           action:
             - play_sound:next
             - next_slide
-          buttonType: icon color
     - id: fase1-10
       elements:
         - type: group
@@ -770,15 +770,6 @@ scene:
           content: |
             La primera fase ha llegado a su fin, el comité ha recibido tu análisis completo.
           className: TituloFaseFinal
-        - type: button
-          variant: primary
-          text: ""
-          top: 300
-          left: 900
-          action:
-            - play_sound:next
-            - next_slide
-          buttonType: icon color
         - type: text
           top: 450
           left: 540
@@ -832,6 +823,8 @@ scene:
         src: src/logos/ebc_logo.png
       electro:
         src: src/logos/electro.png
+      down_arrow:
+        src: src/icons/arrow-down.png
     videos:
       end_video:
         id: end_video

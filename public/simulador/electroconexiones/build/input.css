@@ -41,7 +41,9 @@
 .IconoEnvioChat{
     @apply object-contain cursor-pointer
 }
-
+.Icon{
+  @apply bg-white rounded-full p-2 w-16 cursor-pointer
+}
 .BurbujaMensajePropio{
     @apply text-3xl bg-gray-100 px-16 py-4 rounded-l-4xl rounded-tr-4xl
 }

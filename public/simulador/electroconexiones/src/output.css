@@ -264,6 +264,13 @@
   cursor: pointer;
   object-fit: contain;
 }
+.Icon {
+  width: calc(var(--spacing) * 16);
+  cursor: pointer;
+  border-radius: calc(infinity * 1px);
+  background-color: var(--color-white);
+  padding: calc(var(--spacing) * 2);
+}
 .BurbujaMensajePropio {
   border-top-left-radius: var(--radius-4xl);
   border-bottom-left-radius: var(--radius-4xl);
