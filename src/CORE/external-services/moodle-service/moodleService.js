@@ -54,7 +54,7 @@ export async function getAssignments() {
   // Si hay algo en caché, intenta usarlo
   if (cached) {
     try {
-      const parsed = JSON.parse(cached || "[]");
+      const parsed = cached;
       if (Array.isArray(parsed) && parsed.length > 0) {
         return parsed; // usa el caché válido
       }
@@ -79,7 +79,7 @@ export async function getAssignments() {
     });
 
     const assignments = data.assignments || [];
-    stateManager.set("assignments", JSON.stringify(assignments))
+    stateManager.set("assignments", assignments);
     return assignments;
   } catch (error) {
     console.error("Error al consultar tareas:", error);

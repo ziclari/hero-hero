@@ -16,7 +16,7 @@ export default function CardElement({
 }) {
   const assignments = useMemo(() => {
     try {
-      return JSON.parse(stateManager.get("assignments") || "[]");
+      return stateManager.get("assignments");
     } catch {
       return [];
     }

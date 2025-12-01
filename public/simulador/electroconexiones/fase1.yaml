@@ -22,7 +22,7 @@ scene:
 
             top:
               - type: button
-                icon: src/interactivos/enviar.png
+                icon: simulador/electroconexiones/src/interactivos/enviar.png
                 alt: "Reproducir"
                 action:
                   type: go_to_scene

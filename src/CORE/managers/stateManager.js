@@ -17,11 +17,11 @@ const PERSISTENCE_MAP = {
 const storageEngines = {
   local: {
     get: (k) => localStorage.getItem(k),
-    set: (k, v) => localStorage.setItem(k, v),
+    set: (k, v) => localStorage.setItem(k, v)
   },
   session: {
     get: (k) => sessionStorage.getItem(k),
-    set: (k, v) => sessionStorage.setItem(k, v),
+    set: (k, v) => sessionStorage.setItem(k, v)
   }
 };
 
@@ -35,7 +35,7 @@ class StateManager {
       videoId: null,
       score: 0,
       current_role: null,
-      assignments: {}
+      assignments: []      // siempre array en memoria
     };
 
     this.load();
@@ -60,52 +60,39 @@ class StateManager {
     this.save(key);
   }
 
-  markAssignmentComplete(assignmentName, key = "status", value = "submitted") {
-    let raw = this.state.assignments;
-  
-    // Parsear si viene en string
-    if (typeof raw === "string") {
-      try {
-        raw = JSON.parse(raw);
-      } catch {
-        console.error("Assignments corruptos en stateManager");
-        return;
-      }
+  markAssignmentComplete(assignmentName, key = "submissionstatus", value = "submitted") {
+    let list = this.state.assignments;
+
+    if (!Array.isArray(list)) {
+      console.warn("Assignments no es array en memoria. Normalizando.");
+      list = [];
     }
-  
-    if (!Array.isArray(raw)) {
-      console.error("Assignments no es un array");
-      return;
-    }
-  
-    // Buscar
-    const index = raw.findIndex(a => a.name === assignmentName);
+
+    const index = list.findIndex(a => a.name === assignmentName);
+
     if (index === -1) {
-      const virtualAssignment = {
+      list.push({
         id: assignmentName,
         name: assignmentName,
-        submissionstatus: "submitted"
-      };
-      // Asignar la key sin romper el objeto original de Moodle
-      raw.push(virtualAssignment);
-      // Guardar
-      this.state.assignments = JSON.stringify(raw);
-      this.save("assignments");
+        [key]: value
+      });
+    } else {
+      list[index][key] = value;
     }
-  
-    emitEvent("state:assignments:changed", raw);
+
+    this.state.assignments = list;
+    this.save("assignments");
+
+    emitEvent("state:assignments:changed", list);
   }
-  
 
   save(key) {
     const engine = PERSISTENCE_MAP[key];
     if (!engine) return;
 
     try {
-      storageEngines[engine].set(
-        `${STORAGE_KEY}:${key}`,
-        JSON.stringify(this.state[key])
-      );
+      const json = JSON.stringify(this.state[key]);
+      storageEngines[engine].set(`${STORAGE_KEY}:${key}`, json);
     } catch (e) {
       console.error(`SM Error al guardar ${key}`, e);
     }
@@ -117,14 +104,28 @@ class StateManager {
       if (!engine) return;
 
       try {
-        const data = storageEngines[engine].get(`${STORAGE_KEY}:${key}`);
-        if (data != null) {
-          this.state[key] = JSON.parse(data);
+        const raw = storageEngines[engine].get(`${STORAGE_KEY}:${key}`);
+        if (raw != null) {
+          const parsed = JSON.parse(raw);
+          this.state[key] = parsed;
         }
       } catch (e) {
         console.warn(`SM Warning al cargar ${key}`, e);
       }
     });
+
+    // Normalización final para evitar strings accidentales
+    if (typeof this.state.assignments === "string") {
+      try {
+        this.state.assignments = JSON.parse(this.state.assignments);
+      } catch {
+        this.state.assignments = [];
+      }
+    }
+
+    if (!Array.isArray(this.state.assignments)) {
+      this.state.assignments = [];
+    }
   }
 }
 

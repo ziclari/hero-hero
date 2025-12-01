@@ -126,10 +126,10 @@
   @apply bg-black/60 backdrop-blur-sm;
 }
 .modal-close{
-  @apply color-white absolute top-3 right-3 p-4 flex items-center justify-center rounded-full bg-white/30 hover:bg-white/50 cursor-pointer;
+  @apply  absolute top-3 right-3 p-4 flex items-center justify-center rounded-full bg-white/30 hover:bg-white/50 cursor-pointer;
 }
 .modal-container{
-  @apply w-[700px] h-[650px] bg-brand-dark-blue p-16 color-white;
+  @apply w-[700px] h-[650px] bg-brand-dark-blue p-16;
 }
 .ModalTitle{
   @apply text-white text-5xl font-helvetica-condensed mb-6;
@@ -377,10 +377,35 @@ body {
     border-bottom-right-radius: 2.25rem;
     border-top-left-radius: 2.25rem;
   }
-  /* ==========================
+ 
+  
+     /*
+     Variante de botones para audio
+     */
+     .button-audio {
+      border-radius: 50%;
+      background: linear-gradient(45deg, #006bff, #00b3ff);
+      color: white;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .button-audio[data-hovered] {
+      background: #e8e8e8;
+    }
+    
+    .button-audio[data-pressed] {
+      background: #d0d0d0;
+    }
+    
+    .button-audio[data-disabled] {
+      opacity: 0.5;
+    }
+
+
+     /* ==========================
      BASE GENERAL
   ========================== */
-  .base {
+  .menu-interactive  {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -392,12 +417,13 @@ body {
     gap: 1rem;
     padding-bottom: 0.5rem;
     transition: opacity 0.4s ease, transform 0.4s ease;
+    background-color: red;
   }
   
   /* ==========================
        TOP Y BOTTOM
     ========================== */
-  .base__top {
+  .menu-slot__top {
     position: absolute;
     top: 0.5rem;
     left: 0;
@@ -405,7 +431,7 @@ body {
     z-index: 20;
   }
   
-  .base__bottom {
+  .menu-slot__bottom {
     position: absolute;
     bottom: 50px;
     left: 0;
@@ -429,7 +455,7 @@ body {
       opacity: 1;
     }
   }
-  .base__logo {
+  .menu-slot__left {
     position: fixed;
     bottom: 50px;
     z-index: 20;
@@ -492,25 +518,67 @@ body {
       opacity: 1;
     }
   }
-  
-     /*
-     Variante de botones para audio
-     */
-     .button-audio {
-      border-radius: 50%;
-      background: linear-gradient(45deg, #006bff, #00b3ff);
-      color: white;
-      padding: 8px;
-      cursor: pointer;
-    }
-    .button-audio[data-hovered] {
-      background: #e8e8e8;
-    }
-    
-    .button-audio[data-pressed] {
-      background: #d0d0d0;
-    }
-    
-    .button-audio[data-disabled] {
-      opacity: 0.5;
-    }
+
+
+
+/* Cada slot puede recibir interacción */
+.menu-slot {
+  position: absolute;
+  pointer-events: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* TOP */
+.menu-slot__top {
+  top: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;   /* centrar items horizontalmente */
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+/* BOTTOM */
+.menu-slot__bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+/* LEFT */
+.menu-slot__left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+/* RIGHT */
+.menu-slot__right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+/* FLOATING: libre, centrado por defecto */
+.menu-slot__floating {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+/* Estilos mínimos de item */
+.menu-item {
+  pointer-events: auto; /* asegúrate de que se puede clickear */
+}
