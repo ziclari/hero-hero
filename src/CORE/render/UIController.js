@@ -2,6 +2,7 @@
 import { stateManager } from "../managers/stateManager";
 import { submitAssignment } from "../external-services/moodle-service/moodleService";
 import { emitEvent } from "../events/eventBus";
+import { getPath } from "../config-parser/getPath";
 export const UIController = {
 
     // ---------------------------------------
@@ -54,7 +55,8 @@ export const UIController = {
     playSound(id, scene) {
         try {
             const src = scene?.assets?.audios?.[id]?.src || id;
-            new Audio(src).play().catch(() => {});
+            const audio = getPath(src); console.log(audio)
+            new Audio(audio).play().catch(() => {});
         } catch {}
     },
 

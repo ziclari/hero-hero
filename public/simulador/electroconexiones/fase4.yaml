@@ -63,7 +63,7 @@ scene:
           type: button
           variant: primary
           text: Siguiente
-          top: 780
+          top: 730
           right: 250
           action:
             - play_sound:next

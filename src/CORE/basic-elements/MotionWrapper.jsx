@@ -1,15 +1,27 @@
 import { motion, useAnimationControls } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { animations } from "../animation-library/animations";
 
 export default function MotionWrapper({ children, animate, delay = 0, style }) {
   const controls = useAnimationControls();
+  const [isDelayActive, setIsDelayActive] = useState(delay > 0);
 
   useEffect(() => {
+    // Resetear el estado cuando cambia el delay
+    setIsDelayActive(delay > 0);
+
+    // Timer para habilitar clicks después del delay
+    let timeoutId;
+    if (delay > 0) {
+      timeoutId = setTimeout(() => {
+        setIsDelayActive(false);
+      }, delay * 1000);
+    }
+
     const runSequence = async () => {
       let animList = [];
       let repeatInfinite = false;
-
+      
       if (animate?.sequence) {
         animList = animate.sequence;
         repeatInfinite = animate.repeat === "infinite";
@@ -50,19 +62,31 @@ export default function MotionWrapper({ children, animate, delay = 0, style }) {
         }
       }
     };
+
     runSequence();
-  }, [animate, animations, controls, delay]);
+
+    // Cleanup del timeout
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [animate, controls, delay]);
 
   return (
     <motion.div
       animate={controls}
       style={{
         opacity: animate === "none" ? 1 : 0,
-        pointerEvents: animate && animate !== "none" ? "none" : "auto",
         ...style,
       }}
     >
-      {children}
+      <div style={{ 
+        pointerEvents: (animate === "none" || !isDelayActive) ? "auto" : "none",
+        position: 'relative',
+        width: '100%',
+        height: '100%'
+      }}>
+        {children}
+      </div>
     </motion.div>
   );
 }
