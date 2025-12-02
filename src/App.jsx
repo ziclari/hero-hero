@@ -5,6 +5,7 @@ import { loadModuleManifest } from "./CORE/resources/loadModuleManifest";
 import { loadCssDynamically } from "./CORE/resources/loadCssDynamically";
 import { resolveInitialScene } from "./CORE/resources/sceneLogic";
 import { getPath } from "./CORE/config-parser/getPath";
+import { updateHeadFromManifest } from "./CORE/resources/updateHeadFromManifest";
 
 export default function App() {
   const [manifest, setManifest] = useState(null);
@@ -35,6 +36,8 @@ export default function App() {
         const m = await loadModuleManifest(getPath("manifest.yaml"));
         setManifest(m);
 
+        updateHeadFromManifest(m.meta);
+        
         await getParams(m);
 
         // Cargar CSS del manifest
