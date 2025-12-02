@@ -1,0 +1,23 @@
+scene:
+  slides:
+    - id: laboratorio
+      on_enter:
+        - play_sound:alarm
+        - set: score, "{{ state.score + 5 }}"
+
+      elements:
+        - id: intro
+          type: text
+          content: "Entraste al laboratorio."
+
+        - id: terminal
+          type: button
+          label: "Activar terminal"
+          on_click:
+            - play_sound:beep
+            - inc: score,20
+            - end: laboratorio_finalizado
+
+        - id: scoreboard
+          type: text
+          content: "Tu puntuación final es: {{ state.score }}"

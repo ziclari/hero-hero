@@ -1,6 +1,14 @@
 export function isVisible(el, activeElements) {
-    const byEvent = activeElements?.[el.id] === true;
-    const byDefault = el.visible === undefined || el.visible === true;
-    return byEvent || byDefault;
+  // Si existe en activeElements, manda
+  if (activeElements && el.id in activeElements) {
+    return activeElements[el.id] === true;
   }
-  
+
+  // Si no existe, usar el visible por defecto del elemento
+  if (el.visible !== undefined) {
+    return el.visible === true;
+  }
+
+  // Por defecto visible
+  return true;
+}

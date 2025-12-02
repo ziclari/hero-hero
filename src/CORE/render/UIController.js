@@ -1,8 +1,8 @@
-// CORE/render/UIController.js
 import { stateManager } from "../managers/stateManager";
 import { submitAssignment } from "../external-services/moodle-service/moodleService";
 import { emitEvent } from "../events/eventBus";
 import { getPath } from "../config-parser/getPath";
+// UIController: central dispatcher / bridge between YAML actions and runtime
 export const UIController = {
 
     // ---------------------------------------
@@ -30,19 +30,31 @@ export const UIController = {
     // NAVIGATION
     // ---------------------------------------
     previousSlide() {
-        const current = stateManager.get("slideIndex");
+        const current = stateManager.get("slideIndex") || 0;
         stateManager.set("slideIndex", Math.max(current - 1, 0));
     },
 
     nextSlide() {
-        const i = stateManager.get("slideIndex");
+        const i = stateManager.get("slideIndex") || 0;
         const max = stateManager.get("slideCount") || 0;
         stateManager.set("slideIndex", Math.min(i + 1, max - 1));
     },
 
-    gotoScene(filename) {
-        stateManager.set("currentSceneFile", `${filename}.yaml`);
+    // gotoScene now accepts optional scene object (if the loader already has it)
+    gotoScene(filename, scene = null) {
+        const file = `${filename}.yaml`;
+        stateManager.set("currentSceneFile", file);
         stateManager.set("slideIndex", 0);
+
+        // Notify the system a scene change was requested. The scene loader should
+        // respond by emitting the scene data or by letting the render layer pull it.
+        emitEvent("scene:request", file);
+
+        // If caller supplied the scene object, apply visibility rules and on_enter
+        if (scene) {
+            this.applyVisibilityRules(scene);
+            if (scene.on_enter) this.execute(scene.on_enter, scene);
+        }
     },
 
     // ---------------------------------------
@@ -85,7 +97,7 @@ export const UIController = {
             const result = await submitAssignment(action.assignmentId, file);
             
             const assignments = stateManager.get("assignments");
-            const updated = assignments.map((a) =>
+            const updated = (assignments || []).map((a) =>
                 a.id === action.assignmentId
                 ? { ...a, submissionstatus: "submitted" }
                 : a
@@ -109,6 +121,234 @@ export const UIController = {
     },
 
     // ---------------------------------------
+    // STATE HELPERS
+    // ---------------------------------------
+    // setStateVariable - recibe "key,value" (coma o dos puntos aceptados)
+    setStateVariable(arg) {
+        if (!arg) return;
+        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
+        const key = parts[0];
+        const rawValue = parts.slice(1).join(":");
+
+        // si viene vacío (por ejemplo "set: has_key,true") rawValue será 'true'
+        // Allow numeric, boolean, and explicit +increment strings handled by stateManager
+        let value = rawValue;
+
+        // detect boolean literals
+        if (rawValue === "true" || rawValue === "false") {
+            value = rawValue;
+        } else if (!isNaN(Number(rawValue)) && rawValue !== "") {
+            // keep numbers as numbers
+            value = Number(rawValue);
+        }
+
+        console.log(key,value)
+        stateManager.set(key, value);
+    },
+
+    incrementState(arg) {
+        if (!arg) return;
+        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
+        const key = parts[0];
+        const raw = parts[1] || "1";
+        const n = parseInt(raw, 10) || 1;
+        // stateManager.set handles "+N" prefix
+        stateManager.set(key, `+${n}`);
+    },
+
+    decrementState(arg) {
+        if (!arg) return;
+        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
+        const key = parts[0];
+        const raw = parts[1] || "1";
+        const n = parseInt(raw, 10) || 1;
+        stateManager.set(key, `+${-n}`);
+    },
+
+    callMethod(arg) {
+        if (!arg) return;
+        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
+        const method = parts[0];
+        const param = parts[1];
+
+        // prefer stateManager methods
+        if (typeof stateManager[method] === "function") {
+            stateManager[method](param);
+            return;
+        }
+
+        // fallback: UIController own methods
+        if (typeof this[method] === "function") {
+            this[method](param);
+            return;
+        }
+
+        console.warn("callMethod: método no encontrado:", method);
+    },
+    // ---------------------------------------
+    // CUSTOM STATE HELPERS
+    // ---------------------------------------
+    setCustomVariable(arg) {
+        if (!arg) return;
+
+        // Formatos válidos:
+        // custom.set: mykey,true
+        // custom.set: mykey,123
+        // custom.set: mykey,{"x":1}
+        // custom.set: mykey:value
+        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
+        const key = parts[0];
+        const rawValue = parts.slice(1).join(":");
+
+        let value = rawValue;
+
+        // boolean
+        if (rawValue === "true") value = true;
+        else if (rawValue === "false") value = false;
+
+        // number
+        else if (!isNaN(Number(rawValue))) {
+            value = Number(rawValue);
+        }
+
+        // JSON object or array
+        else {
+            try {
+                value = JSON.parse(rawValue);
+            } catch {
+                // keep raw string
+                value = rawValue;
+            }
+        }
+
+        // No persistencia por defecto
+        stateManager.setCustom(key, value);
+    },
+
+    setCustomVariablePersistent(arg) {
+        if (!arg) return;
+
+        // Forma: custom.set_persistent: key,local,true
+        //        custom.set_persistent: key,session,{"x":2}
+        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
+        const key = parts[0];
+        const storageType = parts[1];  // local o session
+        const rawValue = parts.slice(2).join(":");
+
+        if (!["local", "session"].includes(storageType)) {
+            console.warn("storageType inválido en custom.set_persistent:", storageType);
+            return;
+        }
+
+        let value = rawValue;
+
+        if (rawValue === "true") value = true;
+        else if (rawValue === "false") value = false;
+        else if (!isNaN(Number(rawValue))) value = Number(rawValue);
+        else {
+            try { value = JSON.parse(rawValue); }
+            catch { value = rawValue; }
+        }
+
+        stateManager.setCustom(key, value, storageType);
+    },
+
+    incrementCustom(arg) {
+        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
+        const key = parts[0];
+        const raw = parts[1] || "1";
+        const n = parseInt(raw, 10) || 1;
+
+        const current = stateManager.getCustom(key) || 0;
+        stateManager.setCustom(key, current + n);
+    },
+
+    decrementCustom(arg) {
+        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
+        const key = parts[0];
+        const raw = parts[1] || "1";
+        const n = parseInt(raw, 10) || 1;
+
+        const current = stateManager.getCustom(key) || 0;
+        stateManager.setCustom(key, current - n);
+    },
+
+    // ---------------------------------------
+    // CONDITION EVALUATION
+    // ---------------------------------------
+    // evaluateCondition(expr)
+    // - expr examples: "state.score > 10", "score >= 5 && has_key"
+    // Implementation: creates a limited evaluator using Function + with()
+    evaluateCondition(expr) {
+        if (!expr) return false;
+        try {
+          const core = stateManager.get() || {};
+      
+          // expose custom with helper get()
+          const customStore = stateManager.getCustom ? stateManager.getCustom() : {};
+          const custom = {
+            ...customStore,
+            get(key) {
+              return stateManager.getCustom ? stateManager.getCustom(key) : undefined;
+            }
+          };
+      
+          // ctx incluye core props, state alias y custom
+          const ctx = { ...core, state: core, custom };
+          
+          const func = new Function("ctx", `with (ctx) { return ( ${expr} ); }`);
+          return Boolean(func(ctx));
+        } catch (e) {
+          console.warn("evaluateCondition error", e, expr);
+          return false;
+        }
+    },
+    // ---------------------------------------
+    // VISIBILITY RULES
+    // ---------------------------------------
+    // Itera elementos de escena y aplica visible_if
+    applyVisibilityRules(scene) {
+        if (!scene) return;
+    
+        // Si la escena usa slides
+        let elements = [];
+    
+        if (Array.isArray(scene.slides)) {
+            // Obtén el slide activo
+            const activeSlideId = stateManager.get("activeSlide") || scene.slides[0].id;
+            const slide = scene.slides.find(s => s.id === activeSlideId);
+    
+            if (!slide) return;
+            elements = slide.elements || [];
+        } else {
+            // Escena tradicional sin slides
+            elements = scene.elements || [];
+        }
+    
+        for (const el of elements) {
+            if (!el.id) continue;
+    
+            const vid = el.visible_if || el.visibleIf || el.visibleIfCondition;
+            if (vid) {
+                const visible = this.evaluateCondition(vid);
+                if (visible) this.showElement(el.id);
+                else this.hideElement(el.id);
+            }
+    
+            const enableExpr = el.enabled_if || el.enabledIf;
+            if (enableExpr) {
+                const enabled = this.evaluateCondition(enableExpr);
+                console.log(enabled)
+                const current = stateManager.get("activeElements") || {};
+                stateManager.set("activeElements", {
+                    ...current,
+                    [el.id]: { ...(current[el.id] || {}), enabled }
+                });
+            }
+        }
+    },    
+
+    // ---------------------------------------
     // ACTION DISPATCHER
     // ---------------------------------------
     async execute(action, scene = null) {
@@ -117,40 +357,88 @@ export const UIController = {
         const actions = Array.isArray(action) ? action : [action];
 
         for (const a of actions) {
-            let type, arg;
+            // support shape: string e.g. "show:header" or object { type: 'show', arg: 'header' }
+            let type, arg, raw;
 
             if (typeof a === "string") {
-                [type, arg] = a.split(":");
+                raw = a;
+                const split = a.split(":");
+                type = split[0];
+                arg = split.slice(1).join(":");
             } else if (typeof a === "object" && a.type) {
-                type = a.type.replace(":", "");
-                arg = a.arg || null;
+                type = a.type.toString().replace(/^:/, "");
+                arg = a.arg !== undefined ? a.arg : a.value;
             } else {
                 console.error("Acción inválida", a);
                 continue;
             }
 
+            // Normalize
+            type = type && type.trim();
+
             switch (type) {
+                // ELEMENTS
                 case "show": this.showElement(arg); break;
                 case "hide": this.hideElement(arg); break;
                 case "mark_inactive": this.markInactive(arg); break;
 
+                // NAVIGATION
                 case "previous_slide": this.previousSlide(); break;
                 case "next_slide": this.nextSlide(); break;
-                case "goto_scene": this.gotoScene(arg); break;
+                case "goto_scene": this.gotoScene(arg, scene); break;
 
+                // MEDIA
                 case "play_video": this.playVideo(arg); break;
                 case "play_sound": this.playSound(arg, scene); break;
                 case "audio_finished": this.audioFinished(); break;
 
+                // TIMERS
                 case "wait": this.wait(arg); break;
 
+                // UPLOAD
                 case "upload_file": await this.uploadFile(a); break;
 
+                // COMPLETION
                 case "mark_complete": this.markComplete(arg); break;
                 case "end": emitEvent(`end:${arg}`); break;
+
+                // STATE OPERATIONS
+                case "set": this.setStateVariable(arg); break;
+                case "inc": this.incrementState(arg); break;
+                case "dec": this.decrementState(arg); break;
+                case "call": this.callMethod(arg); break;
+                case "custom_set":
+                    this.setCustomVariable(arg);
+                    break;
+                
+                case "custom_set_persistent":
+                    this.setCustomVariablePersistent(arg);
+                    break;
+                
+                case "custom_inc":
+                    this.incrementCustom(arg);
+                    break;
+                
+                case "custom_dec":
+                    this.decrementCustom(arg);
+                    break;                
+                // CONDITIONAL ACTION (object form recommended):
+                // { type: 'if', arg: 'score > 10', actions: [ 'goto_scene:win' ] }
+                case "if": {
+                    const cond = arg;
+                    const should = this.evaluateCondition(cond);
+                    if (should && a.actions) {
+                        await this.execute(a.actions, scene);
+                    }
+                    break;
+                }
+
                 default:
                     console.warn("Acción no reconocida:", a);
             }
         }
+
+        // After running actions, re-evaluate scene visibility if scene provided
+        if (scene) this.applyVisibilityRules(scene);
     }
 };

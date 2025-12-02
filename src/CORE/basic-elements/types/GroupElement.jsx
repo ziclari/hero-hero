@@ -4,6 +4,8 @@ import MotionWrapper from "../MotionWrapper";
 import { computeLayout } from "../../render/computeLayout";
 import { isVisible } from "../../render/isVisible";
 import { resolveElement } from "../../render/resolveElement";
+import { interpolate } from "../../render/interpolate";
+import { stateManager } from "../../managers/stateManager";
 export default function GroupElement({
   elements,
   assets,
@@ -29,7 +31,20 @@ export default function GroupElement({
         if (!isVisible(el, activeElements)) return null;
 
         const resolved = resolveElement(el, assets);
-        const layout = computeLayout(resolved);
+        const state = stateManager.get();
+        const custom = stateManager.getCustom();
+
+        const context = { ...state, custom }; // ahora `custom` es accesible en las interpolaciones
+
+        const interpolated = {};
+        for (const [key, value] of Object.entries(resolved)) {
+          interpolated[key] =
+            typeof value === "string"
+              ? interpolate(value, context)
+              : value;
+        }
+
+        const layout = computeLayout(interpolated);
 
         return (
           <MotionWrapper
@@ -39,7 +54,7 @@ export default function GroupElement({
             style={layout}
           >
             <Element
-              {...resolved}
+              {...interpolated}
               assets={assets}
               activeElements={activeElements}
               setActiveElements={setActiveElements}

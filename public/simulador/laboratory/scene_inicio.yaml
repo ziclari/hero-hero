@@ -1,0 +1,32 @@
+scene:
+  slides:
+    - id: inicio
+      variables:
+        score: 0
+        has_key: false
+
+      on_enter:
+        - play_sound:intro
+        - set: score,0
+        - set: has_key,false
+
+      elements:
+        - id: intro_text
+          type: text
+          content: |
+            Bienvenido al módulo.
+          top: 100
+          left: 500
+          width: 900
+          className: texti
+          visible_if: "true"
+
+        - type: button
+          text: Comenzar
+          top: 800
+          left: 830
+          variant: primary
+          action:
+            - inc:score,5
+            - goto_scene:scene_pasillo
+            

@@ -1,0 +1,75 @@
+scene:
+  slides:
+    - id: pasillo
+      variables: {}
+      on_enter:
+        - play_sound:steps
+
+      elements:
+
+        - id: titulo
+          type: text
+          content: "Estás en un pasillo oscuro…"
+          top: 100
+          left: 500
+          width: 900
+          className: texti
+          
+        # -------------------------------------------
+        # LLAVE (solo visible si NO la tienes)
+        # -------------------------------------------
+        - id: llave
+          type: image
+          src: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaSZiBaZpeVbsoMHFonyPqLeGZ23WMTx890g&s
+          visible_if: "custom.get('has_key') == false"
+          top: 250
+          left: 600
+          action:
+            - custom_set_persistent:has_key,local,true
+            - inc:score,10
+            - hide:llave
+
+        # -------------------------------------------
+        # PUERTA (solo visible si tienes la llave)
+        # -------------------------------------------
+        - id: puerta
+          type: button
+          text: Abrir puerta
+          top: 400
+          left: 830
+          variant: primary
+          visible_if: "custom.get('has_key') == true"
+          action:
+            - play_sound:door_open
+            - goto_scene:laboratorio
+
+        # -------------------------------------------
+        # MENSAJE — si NO tienes llave
+        # -------------------------------------------
+        - id: mensaje_no_llave
+          type: text
+          top: 200
+          left: 830
+          content: "Necesitas una llave."
+          visible_if: "custom.get('has_key') == false"
+          className: texti
+
+        # -------------------------------------------
+        # SCORE (state normal)
+        # -------------------------------------------
+        - id: puntuacion
+          type: text
+          top: 800
+          left: 830
+          content: "Puntos: {{ state.score }}"
+          className: texti
+
+        # -------------------------------------------
+        # TEXTO: ¿Tiene llave?
+        # -------------------------------------------
+        - id: tiene_llave
+          type: text
+          top: 900
+          left: 830
+          content: "¿Tiene llave?: {{ custom.has_key }}"
+          className: texti

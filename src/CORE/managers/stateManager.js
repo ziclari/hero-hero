@@ -38,6 +38,8 @@ class StateManager {
       assignments: []      // siempre array en memoria
     };
 
+    this.custom = {};
+
     this.load();
   }
 
@@ -45,6 +47,10 @@ class StateManager {
     return key ? this.state[key] : this.state;
   }
 
+  getCustom(key) {
+    return key ? this.custom[key] : this.custom;
+  }
+  
   set(key, value) {
     let finalValue = value;
 
@@ -58,6 +64,24 @@ class StateManager {
 
     emitEvent(`state:${key}:changed`, finalValue);
     this.save(key);
+  }
+
+  setCustom(key, value, storageType = null) {
+    // Asignación en memoria
+    this.custom[key] = value;
+  
+    // Evento reactivo
+    emitEvent(`custom:${key}:changed`, value);
+  
+    // Persistencia opcional
+    if (storageType && (storageType === "local" || storageType === "session")) {
+      try {
+        const json = JSON.stringify(value);
+        storageEngines[storageType].set(`${STORAGE_KEY}:${key}_custom`, json);
+      } catch (e) {
+        console.error(`SM Error al guardar custom ${key}`, e);
+      }
+    }
   }
 
   markAssignmentComplete(assignmentName, key = "submissionstatus", value = "submitted") {
@@ -126,6 +150,31 @@ class StateManager {
     if (!Array.isArray(this.state.assignments)) {
       this.state.assignments = [];
     }
+  
+    // ---------------------------------------
+    // Cargar custom state persistido
+    // ---------------------------------------
+    ["local", "session"].forEach((type) => {
+      const engine = storageEngines[type];
+      if (!engine) return;
+
+      for (let i = 0; i < engine.length; i++) {
+        const storageKey = engine.key(i);
+        if (!storageKey || !storageKey.startsWith(STORAGE_KEY)) continue;
+        if (!storageKey.endsWith("_custom")) continue;
+
+        try {
+          const raw = engine.getItem(storageKey);
+          const parsed = JSON.parse(raw);
+          const keyName = storageKey
+            .replace(`${STORAGE_KEY}:`, "")
+            .replace("_custom", "");
+          this.custom[keyName] = parsed;
+        } catch (e) {
+          console.warn("SM Warning al cargar custom", storageKey, e);
+        }
+      }
+    });
   }
 }
 

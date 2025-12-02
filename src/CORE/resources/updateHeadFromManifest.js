@@ -2,7 +2,6 @@ import { getPath } from "../config-parser/getPath";
 
 // CORE/dom/updateHeadFromManifest.js
 export function updateHeadFromManifest(meta) {
-    console.log(meta)
     if (!meta) return;
   
     // Title
