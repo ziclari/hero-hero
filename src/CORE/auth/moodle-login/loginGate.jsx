@@ -7,6 +7,7 @@ import { moodleApi } from "../../external-services/moodle-service/moodleApi";
 export default function LoginGate({ requireLogin, onReady }) {
   const [loading, setLoading] = useState(true);
   const [valid, setValid] = useState(false);
+  const [postLoginLoading, setPostLoginLoading] = useState(false);
   const [assignments, setAssignments] = useState([]);
 
   useEffect(() => {
@@ -46,20 +47,40 @@ export default function LoginGate({ requireLogin, onReady }) {
     verify();
   }, [requireLogin]);
 
-  if (loading) return <div>Cargando sesión...</div>;
+  // 1. Estado inicial
+  if (loading) return <div>Cargando sesión…</div>;
 
-  if (!valid) {
+  // 2. Estado cuando NO hay sesión → mostrar Login
+  if (!valid && !postLoginLoading) {
     return (
       <Login
         onSuccess={async () => {
-          const a = await getAssignments();
-          setAssignments(a);
-          onReady({ assignments: a });
-          setValid(true);
+          // Se logró login correctamente
+          setPostLoginLoading(true);       // Mostrar mensaje success + loading
+          
+          try {
+            const a = await getAssignments();
+            setAssignments(a);
+            onReady({ assignments: a });
+            setValid(true);
+          } finally {
+            setPostLoginLoading(false);
+          }
         }}
       />
     );
   }
 
+  // 3. Estado después de login → loading bloqueante con mensaje "success"
+  if (postLoginLoading) {
+    return (
+      <div style={{ padding: "2rem", textAlign: "center" }}>
+        <h2>Inicio de sesión exitoso</h2>
+        <p>Cargando datos del curso…</p>
+      </div>
+    );
+  }
+
+  // 4. Login validado
   return null;
 }
