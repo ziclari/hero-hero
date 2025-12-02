@@ -103,7 +103,7 @@ export default function SceneRenderer({ initialScene }) {
           {/* Barra de progreso */}
           <div className="w-80 h-2 bg-gray-800 rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-sky-600 to-brand-purple-600"
+              className="h-full bg-gradient-to-r from-sky-500 to-sky-700"
               initial={{ width: 0 }}
               animate={{ width: `${loadingProgress}%` }}
               transition={{ duration: 0.3 }}
