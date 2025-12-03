@@ -63,6 +63,7 @@ class StateManager {
     this.state[key] = finalValue;
 
     emitEvent(`state:${key}:changed`, finalValue);
+    emitEvent('state:changed', this.state);
     this.save(key);
   }
 
@@ -155,16 +156,15 @@ class StateManager {
     // Cargar custom state persistido
     // ---------------------------------------
     ["local", "session"].forEach((type) => {
-      const engine = storageEngines[type];
-      if (!engine) return;
-
-      for (let i = 0; i < engine.length; i++) {
-        const storageKey = engine.key(i);
+      const nativeStorage = type === "local" ? localStorage : sessionStorage;
+      
+      for (let i = 0; i < nativeStorage.length; i++) {
+        const storageKey = nativeStorage.key(i);
         if (!storageKey || !storageKey.startsWith(STORAGE_KEY)) continue;
         if (!storageKey.endsWith("_custom")) continue;
-
+  
         try {
-          const raw = engine.getItem(storageKey);
+          const raw = nativeStorage.getItem(storageKey);
           const parsed = JSON.parse(raw);
           const keyName = storageKey
             .replace(`${STORAGE_KEY}:`, "")
@@ -175,6 +175,8 @@ class StateManager {
         }
       }
     });
+    console.log(this.state)
+    console.log(this.custom)
   }
 }
 

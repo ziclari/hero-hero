@@ -3,21 +3,32 @@ scene:
     - id: laboratorio
       on_enter:
         - play_sound:alarm
-        - set: score, "{{ state.score + 5 }}"
+        - inc:score,5
 
       elements:
         - id: intro
           type: text
           content: "Entraste al laboratorio."
+          top: 100
+          left: 500
+          width: 900
+          className: texti
 
         - id: terminal
           type: button
-          label: "Activar terminal"
-          on_click:
+          text: "Activar terminal"  
+          top: 400
+          left: 830
+          variant: primary
+          action:
             - play_sound:beep
-            - inc: score,20
-            - end: laboratorio_finalizado
+            - inc:score,20
+            - end:laboratorio_finalizado
 
         - id: scoreboard
           type: text
-          content: "Tu puntuación final es: {{ state.score }}"
+          content: "Tu puntuación final es: {{ score }}"
+          top: 700
+          left: 500
+          width: 900
+          className: texti

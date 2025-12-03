@@ -2,14 +2,12 @@ scene:
   slides:
     - id: inicio
       variables:
-        score: 0
-        has_key: false
+        - score:0
+        - has_key:false
 
       on_enter:
         - play_sound:intro
-        - set: score,0
-        - set: has_key,false
-
+        
       elements:
         - id: intro_text
           type: text

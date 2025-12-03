@@ -1,12 +1,9 @@
 scene:
+  on_enter: play_sound:steps
+  
   slides:
     - id: pasillo
-      variables: {}
-      on_enter:
-        - play_sound:steps
-
       elements:
-
         - id: titulo
           type: text
           content: "Estás en un pasillo oscuro…"
@@ -41,7 +38,7 @@ scene:
           visible_if: "custom.get('has_key') == true"
           action:
             - play_sound:door_open
-            - goto_scene:laboratorio
+            - goto_scene:scene_laboratorio
 
         # -------------------------------------------
         # MENSAJE — si NO tienes llave
@@ -61,7 +58,7 @@ scene:
           type: text
           top: 800
           left: 830
-          content: "Puntos: {{ state.score }}"
+          content: "Puntos: {{ score }}"
           className: texti
 
         # -------------------------------------------

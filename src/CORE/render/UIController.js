@@ -45,16 +45,19 @@ export const UIController = {
         const file = `${filename}.yaml`;
         stateManager.set("currentSceneFile", file);
         stateManager.set("slideIndex", 0);
-
+        if (scene) {
+            this.applyVisibilityRules(scene);
+            if (scene?.on_enter) {
+                this.execute(scene.on_enter, scene);
+            }
+            const firstSlide = scene.slides?.[0];
+            if (firstSlide?.on_enter) {
+                this.execute(firstSlide.on_enter, scene);
+            }
+        }
         // Notify the system a scene change was requested. The scene loader should
         // respond by emitting the scene data or by letting the render layer pull it.
         emitEvent("scene:request", file);
-
-        // If caller supplied the scene object, apply visibility rules and on_enter
-        if (scene) {
-            this.applyVisibilityRules(scene);
-            if (scene.on_enter) this.execute(scene.on_enter, scene);
-        }
     },
 
     // ---------------------------------------
@@ -152,7 +155,7 @@ export const UIController = {
         const key = parts[0];
         const raw = parts[1] || "1";
         const n = parseInt(raw, 10) || 1;
-        // stateManager.set handles "+N" prefix
+        // stateManager.set handles "+N" prefix)
         stateManager.set(key, `+${n}`);
     },
 
@@ -437,7 +440,6 @@ export const UIController = {
                     console.warn("Acción no reconocida:", a);
             }
         }
-
         // After running actions, re-evaluate scene visibility if scene provided
         if (scene) this.applyVisibilityRules(scene);
     }

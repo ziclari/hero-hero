@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Element from "../Element";
 import MotionWrapper from "../MotionWrapper";
 import { computeLayout } from "../../render/computeLayout";
@@ -6,6 +6,8 @@ import { isVisible } from "../../render/isVisible";
 import { resolveElement } from "../../render/resolveElement";
 import { interpolate } from "../../render/interpolate";
 import { stateManager } from "../../managers/stateManager";
+import { onEvent } from "../../events/eventBus";
+
 export default function GroupElement({
   elements,
   assets,
@@ -14,34 +16,32 @@ export default function GroupElement({
   activeElements,
   setActiveElements,
 }) {
-  const classes = [
-    "group",          // Clase base estándar para grupos
-    "group-bg",       // Clase para fondos (bg-cover, etc.)
-    className
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const unsub = onEvent("state:changed", () => {
+      setTick((t) => t + 1);
+    });
+
+    return unsub;
+  }, []);
+
+  const classes = ["group", "group-bg", className].filter(Boolean).join(" ");
 
   return (
-    <div
-      className={classes}
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className={classes} onClick={(e) => e.stopPropagation()}>
       {elements.map((el, i) => {
         if (!isVisible(el, activeElements)) return null;
 
         const resolved = resolveElement(el, assets);
         const state = stateManager.get();
         const custom = stateManager.getCustom();
-
-        const context = { ...state, custom }; // ahora `custom` es accesible en las interpolaciones
+        const context = { ...state, custom };
 
         const interpolated = {};
         for (const [key, value] of Object.entries(resolved)) {
           interpolated[key] =
-            typeof value === "string"
-              ? interpolate(value, context)
-              : value;
+            typeof value === "string" ? interpolate(value, context) : value;
         }
 
         const layout = computeLayout(interpolated);
