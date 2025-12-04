@@ -1,0 +1,60 @@
+scene:
+  background: bg_storage
+  slides:
+    - id: storage_1
+      elements:
+        - type: text
+          content: STORAGE
+          top: 50
+          left: 50
+          className: heading-text
+
+        - type: text
+          content: |
+            It's dusty.
+          top: 200
+          left: 500
+          width: 900
+          className: bubble
+
+        # Fuse Item - Visible if not yet picked up
+        - id: fuse_item
+          type: image
+          src: https://images.unsplash.com/photo-1555617766-c94804975da3?q=80&w=2070&auto=format&fit=crop
+          top: 400
+          left: 800
+          width: 200
+          height: 200
+          visible_if: "custom.get('has_fuse') != true"
+          action:
+            - custom_set_persistent:has_fuse,local,true
+            - hide:fuse_item
+            - show:msg_got_fuse
+
+        - id: msg_got_fuse
+          type: text
+          content: "You picked up a POWER FUSE."
+          top: 650
+          left: 700
+          visible_if: "custom.get('has_fuse') == true"
+          className: bubble
+
+        - id: empty_shelve
+          type: text
+          content: "Empty shelves."
+          top: 400
+          left: 800
+          visible_if: "custom.get('has_fuse') == true"
+          className: bubble
+
+        - type: button
+          text: Back to Room
+          top: 800
+          left: 830
+          variant: primary
+          action:
+            - goto_scene:room
+  assets:
+    images:
+      bg_storage:
+        src: https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=2009&auto=format&fit=crop

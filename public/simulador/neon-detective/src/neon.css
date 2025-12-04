@@ -26,7 +26,7 @@ body {
     border-radius: 5px;
 }
 
-.btn-primary {
+.button-primary {
     background: transparent;
     border: 2px solid #f0f;
     color: #f0f;
@@ -39,7 +39,7 @@ body {
     box-shadow: 0 0 5px #f0f;
 }
 
-.btn-primary:hover {
+.button-primary:hover {
     background: #f0f;
     color: #000;
     box-shadow: 0 0 20px #f0f;

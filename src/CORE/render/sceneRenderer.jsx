@@ -40,8 +40,14 @@ export default function SceneRenderer({ initialScene }) {
     if (!scene) return;
 
     stateManager.set("slideCount", scene.slides.length);
-
-
+    UIController.applyVisibilityRules(scene);
+    // Escucha cambios en custom state
+    const unsubCustom = onEvent("custom:changed", () => {
+      UIController.applyVisibilityRules(scene);
+    });
+    return () => {
+      unsubCustom();
+    };
   }, [scene]);
 
   const slide = scene?.slides?.[slideIndex];
@@ -50,7 +56,7 @@ export default function SceneRenderer({ initialScene }) {
   // ---------------------------------------
   // 3. Manejar acciones de elementos
   // ---------------------------------------
-  const onAction = (a) => {UIController.execute(a, scene); console.log(a)}
+  const onAction = (a) => {UIController.execute(a, scene)}
 
   // ---------------------------------------
   // 4. Control de eventos declarados en YAML

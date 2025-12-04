@@ -1,0 +1,59 @@
+/* Time Loop Theme */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body {
+    background-color: #000;
+    color: #0f0;
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+}
+
+.heading-text {
+    font-size: 3rem;
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bubble {
+    background: rgba(0, 20, 0, 0.9);
+    border: 1px solid #0f0;
+    color: #0f0;
+    padding: 20px;
+    font-size: 1.2rem;
+    border-radius: 0;
+}
+
+.button-primary {
+    background: #000;
+    border: 1px solid #0f0;
+    color: #0f0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.button-primary:hover {
+    background: #0f0;
+    color: #000;
+}
+
+.btn-disabled {
+    border-color: #333;
+    color: #333;
+    pointer-events: none;
+    background-color: white;
+}
+
+.status-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 1px solid #0f0;
+    padding: 10px;
+    font-size: 1rem;
+}

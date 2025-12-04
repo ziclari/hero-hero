@@ -71,9 +71,7 @@ class StateManager {
     // Asignación en memoria
     this.custom[key] = value;
   
-    // Evento reactivo
-    emitEvent(`custom:${key}:changed`, value);
-  
+   
     // Persistencia opcional
     if (storageType && (storageType === "local" || storageType === "session")) {
       try {
@@ -83,6 +81,9 @@ class StateManager {
         console.error(`SM Error al guardar custom ${key}`, e);
       }
     }
+    // Evento reactivo
+    emitEvent(`custom:${key}:changed`, value);
+    emitEvent('custom:changed', this.state);
   }
 
   markAssignmentComplete(assignmentName, key = "submissionstatus", value = "submitted") {
@@ -175,8 +176,6 @@ class StateManager {
         }
       }
     });
-    console.log(this.state)
-    console.log(this.custom)
   }
 }
 

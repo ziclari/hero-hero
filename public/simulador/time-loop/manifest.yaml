@@ -1,0 +1,29 @@
+meta:
+  id: "time_loop"
+  name: "Time Loop Experiment"
+  version: "1.0"
+  description: "Escape the loop by gathering knowledge across lifetimes."
+  requireLogin: false
+  startScene: "intro"
+  skin: "src/loop.css"
+  icon: "src/assets/icon-192x192.png"
+  favicon: "src/assets/favicon.ico"
+  themeColor: "#000000"
+
+scenes:
+  - id: intro
+    file: intro.yaml
+    requires: []
+    next: "room"
+
+  - id: room
+    file: room.yaml
+
+  - id: storage
+    file: storage.yaml
+
+  - id: computer
+    file: computer.yaml
+
+  - id: exit
+    file: exit.yaml
