@@ -18,9 +18,9 @@ scene:
           visible: false
           visible_if: "custom.get('loop_count') == null"
           action:
-            - custom_set_persistent:loop_count,local,1
-            - custom_set_persistent:has_fuse,local,false
-            - custom_set_persistent:knows_code,local,false
+            - custom_set:loop_count,local,1
+            - custom_set:has_fuse,local,false
+            - custom_set:knows_code,local,false
 
         - type: text
           content: "Loop Cycle: {{ custom.loop_count }}"

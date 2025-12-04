@@ -13,20 +13,3 @@ meta:
 scenes:
   - id: intro
     file: completo.yaml
-    requires: []
-    next: "org_chart"
-
-  - id: org_chart
-    file: org_chart.yaml
-
-  - id: profile_ceo
-    file: profile_ceo.yaml
-
-  - id: profile_cto
-    file: profile_cto.yaml
-
-  - id: profile_cfo
-    file: profile_cfo.yaml
-
-  - id: server_room
-    file: server_room.yaml

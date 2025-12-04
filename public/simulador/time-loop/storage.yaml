@@ -27,7 +27,7 @@ scene:
           height: 200
           visible_if: "custom.get('has_fuse') != true"
           action:
-            - custom_set_persistent:has_fuse,local,true
+            - custom_set:has_fuse,local,true
             - hide:fuse_item
             - show:msg_got_fuse
 

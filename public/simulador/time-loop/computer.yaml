@@ -45,7 +45,7 @@ scene:
               left: 830
               variant: primary
               action:
-                - custom_set_persistent:knows_code,local,true
+                - custom_set:knows_code,local,true
 
         - id: msg_code_learned
           type: text

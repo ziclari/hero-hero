@@ -24,14 +24,6 @@ scene:
           width: 900
           className: bubble
 
-        # Initialize password state
-        - id: init_state
-          type: text
-          visible: false
-          visible_if: "custom.get('found_password') == null"
-          action:
-            - custom_set_persistent:found_password,local,false
-
         - type: button
           text: START MISSION
           top: 800
@@ -39,6 +31,7 @@ scene:
           variant: primary
           action:
             - goto_id:org_chart
+            - custom_set:found_password,local,false
 
     - id: org_chart
       elements:
@@ -181,7 +174,7 @@ scene:
           className: sticky-note
           visible_if: "custom.get('found_password') == false"
           action:
-            - custom_set_persistent:found_password,local,true
+            - custom_set:found_password,local,true
         - id: msg_found
           type: text
           content: "Password Acquired!"
@@ -250,7 +243,7 @@ scene:
               left: 830
               variant: primary
               action:
-                - custom_set_persistent:found_password,local,false
+                - custom_set:found_password,local,false
                 - goto_id:intro
   assets:
     images:

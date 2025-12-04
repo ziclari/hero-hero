@@ -208,44 +208,8 @@ export const UIController = {
     // ---------------------------------------
     // CUSTOM STATE HELPERS
     // ---------------------------------------
+
     setCustomVariable(arg) {
-        if (!arg) return;
-
-        // Formatos válidos:
-        // custom.set: mykey,true
-        // custom.set: mykey,123
-        // custom.set: mykey,{"x":1}
-        // custom.set: mykey:value
-        const parts = arg.toString().split(/[:,]/).map(p => p.trim());
-        const key = parts[0];
-        const rawValue = parts.slice(1).join(":");
-
-        let value = rawValue;
-
-        // boolean
-        if (rawValue === "true") value = true;
-        else if (rawValue === "false") value = false;
-
-        // number
-        else if (!isNaN(Number(rawValue))) {
-            value = Number(rawValue);
-        }
-
-        // JSON object or array
-        else {
-            try {
-                value = JSON.parse(rawValue);
-            } catch {
-                // keep raw string
-                value = rawValue;
-            }
-        }
-
-        // No persistencia por defecto
-        stateManager.setCustom(key, value);
-    },
-
-    setCustomVariablePersistent(arg) {
         if (!arg) return;
 
         // Forma: custom.set_persistent: key,local,true
@@ -274,23 +238,63 @@ export const UIController = {
     },
 
     incrementCustom(arg) {
+        if (!arg) return;
+    
+        // Parse básico solo para extraer key, storageType y número
         const parts = arg.toString().split(/[:,]/).map(p => p.trim());
         const key = parts[0];
-        const raw = parts[1] || "1";
-        const n = parseInt(raw, 10) || 1;
-
-        const current = stateManager.getCustom(key) || 0;
-        stateManager.setCustom(key, current + n);
+    
+        // Detectar storageType (si existe)
+        let storageType = "local";
+        let rawValueIndex = 1;
+    
+        if (parts[1] === "local" || parts[1] === "session") {
+            storageType = parts[1];
+            rawValueIndex = 2;
+        }
+    
+        // Obtener número de incremento
+        const rawIncrement = parts[rawValueIndex] || "1";
+        const increment = Number(rawIncrement) || 1;
+    
+        // Recuperar valor actual
+        const current = stateManager.getCustom(key, storageType);
+        const base = typeof current === "number" ? current : Number(current) || 0;
+    
+        const newValue = base + increment;
+    
+        // Reutiliza completamente la lógica robusta de setCustomVariable
+        this.setCustomVariable(`${key}:${storageType}:${newValue}`);
     },
+    
 
     decrementCustom(arg) {
+        if (!arg) return;
+    
         const parts = arg.toString().split(/[:,]/).map(p => p.trim());
         const key = parts[0];
-        const raw = parts[1] || "1";
-        const n = parseInt(raw, 10) || 1;
-
-        const current = stateManager.getCustom(key) || 0;
-        stateManager.setCustom(key, current - n);
+    
+        // Detectar storageType (si existe)
+        let storageType = "local";
+        let rawValueIndex = 1;
+    
+        if (parts[1] === "local" || parts[1] === "session") {
+            storageType = parts[1];
+            rawValueIndex = 2;
+        }
+    
+        // Valor a restar
+        const rawDecrement = parts[rawValueIndex] || "1";
+        const decrement = Number(rawDecrement) || 1;
+    
+        // Obtener valor actual
+        const current = stateManager.getCustom(key, storageType);
+        const base = typeof current === "number" ? current : Number(current) || 0;
+    
+        const newValue = base - decrement;
+    
+        // Delegar toda la lógica de parseo/almacenamiento a setCustomVariable
+        this.setCustomVariable(`${key}:${storageType}:${newValue}`);
     },
 
     // ---------------------------------------
@@ -425,10 +429,6 @@ export const UIController = {
                 case "call": this.callMethod(arg); break;
                 case "custom_set":
                     this.setCustomVariable(arg);
-                    break;
-                
-                case "custom_set_persistent":
-                    this.setCustomVariablePersistent(arg);
                     break;
                 
                 case "custom_inc":
