@@ -3,7 +3,7 @@ meta:
   name: "Electro conexiones del Bajío"
   version: "1.0"
   description: "Simulador interactivo con fases progresivas."
-  requireLogin: true
+  requireLogin: false
   startScene: "intro"
   skin: "src/output.css"
   icon: "src/assets/icon-192x192.png"

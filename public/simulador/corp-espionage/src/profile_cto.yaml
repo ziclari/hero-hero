@@ -1,0 +1,56 @@
+scene:
+  background: bg_office
+  slides:
+    - id: profile_cto_1
+      elements:
+        - type: group
+          top: 100
+          left: 560
+          width: 800
+          className: profile-card
+          elements:
+            - type: image
+              src: https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop
+              width: 200
+              height: 200
+              position: relative
+            - type: text
+              content: |
+                Name: Sarah Connor
+                Role: Chief Technology Officer
+                Bio: Cyber-security expert. Paranoid about data breaches.
+              position: relative
+              className: bubble
+            
+            # The Secret Sticky Note
+        - id: sticky_note
+          type: text
+          content: "PWD: Admin123"
+          position: absolute
+          top: 50
+          right: 50
+          className: sticky-note
+          visible_if: "custom.get('found_password') == false"
+          action:
+            - custom_set_persistent:found_password,local,true
+        - id: msg_found
+          type: text
+          content: "Password Acquired!"
+          position: absolute
+          top: 300
+          right: 50
+          className: bubble
+          visible_if: "custom.get('found_password') == true"
+
+        - type: button
+          text: Back to Chart
+          top: 800
+          left: 830
+          variant: primary
+          action:
+            - goto_scene:org_chart
+    
+  assets:
+    images:
+      bg_office:
+        src: https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop

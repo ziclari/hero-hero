@@ -12,6 +12,7 @@ export default function GroupElement({
   elements,
   assets,
   className,
+  action,
   onAction,
   activeElements,
   setActiveElements,
@@ -27,9 +28,14 @@ export default function GroupElement({
   }, []);
 
   const classes = ["group", "group-bg", className].filter(Boolean).join(" ");
-
+  const handleGroupClick = (e) => {
+    e.stopPropagation();
+    if (action && onAction) {
+      onAction(action);
+    }
+  };
   return (
-    <div className={classes} onClick={(e) => e.stopPropagation()}>
+    <div className={classes} onClick={handleGroupClick}>
       {elements.map((el, i) => {
         if (!isVisible(el, activeElements)) return null;
 

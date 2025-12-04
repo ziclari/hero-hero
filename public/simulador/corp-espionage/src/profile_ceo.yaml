@@ -1,0 +1,35 @@
+scene:
+  background: bg_office
+  slides:
+    - id: profile_ceo_1
+      elements:
+        - type: group
+          top: 100
+          left: 560
+          width: 800
+          className: profile-card
+          elements:
+            - type: image
+              src: https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop
+              width: 200
+              height: 200
+              position: relative
+            - type: text
+              content: |
+                Name: Arthur Pendragon
+                Role: Chief Executive Officer
+                Bio: Visionary leader with a passion for efficiency.
+              position: relative
+              className: bubble
+
+        - type: button
+          text: Back to Chart
+          top: 800
+          left: 830
+          variant: primary
+          action:
+            - goto_scene:org_chart
+  assets:
+    images:
+      bg_office:
+        src: https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop

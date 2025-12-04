@@ -39,7 +39,24 @@ export const UIController = {
         const max = stateManager.get("slideCount") || 0;
         stateManager.set("slideIndex", Math.min(i + 1, max - 1));
     },
-
+    gotoId(id, scene) {
+        if (!scene || !Array.isArray(scene.slides)) return;
+    
+        const idx = scene.slides.findIndex(s => s.id === id);
+        if (idx === -1) {
+            console.warn("goto_id: slide no encontrado:", id);
+            return;
+        }
+    
+        stateManager.set("slideIndex", idx);
+        // Ejecuta reglas como cualquier navegación
+        this.applyVisibilityRules(scene);
+        // Ejecuta on_enter del slide destino si existe
+        const slide = scene.slides[idx];
+        if (slide?.on_enter) {
+            this.execute(slide.on_enter, scene);
+        }
+    },    
     // gotoScene now accepts optional scene object (if the loader already has it)
     gotoScene(filename, scene = null) {
         const file = `${filename}.yaml`;
@@ -312,15 +329,12 @@ export const UIController = {
     // Itera elementos de escena y aplica visible_if
     applyVisibilityRules(scene) {
         if (!scene) return;
-    
         // Si la escena usa slides
         let elements = [];
-    
         if (Array.isArray(scene.slides)) {
             // Obtén el slide activo
-            const activeSlideId = stateManager.get("activeSlide") || scene.slides[0].id;
-            const slide = scene.slides.find(s => s.id === activeSlideId);
-    
+            const idx = stateManager.get("slideIndex") || 0;
+            const slide = scene.slides[idx];
             if (!slide) return;
             elements = slide.elements || [];
         } else {
@@ -330,7 +344,6 @@ export const UIController = {
     
         for (const el of elements) {
             if (!el.id) continue;
-    
             const vid = el.visible_if || el.visibleIf || el.visibleIfCondition;
             if (vid) {
                 const visible = this.evaluateCondition(vid);
@@ -435,6 +448,9 @@ export const UIController = {
                     }
                     break;
                 }
+                case "goto_id":
+                    this.gotoId(arg, scene);
+                    break;
 
                 default:
                     console.warn("Acción no reconocida:", a);
