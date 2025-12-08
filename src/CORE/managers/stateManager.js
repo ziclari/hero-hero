@@ -38,6 +38,13 @@ class StateManager {
       assignments: []      // siempre array en memoria
     };
 
+    // Almacenes separados para persistencia optimizada
+    this.customStorage = {
+      local: {},
+      session: {}
+    };
+    
+    // Vista unificada para acceso rápido
     this.custom = {};
 
     this.load();
@@ -68,48 +75,61 @@ class StateManager {
   }
 
   setCustom(key, value, storageType = null) {
-    // Asignación en memoria
+    // 1. Actualizar vista unificada
     this.custom[key] = value;
   
-   
-    // Persistencia opcional
+    // 2. Actualizar almacenamiento específico si se indica
     if (storageType && (storageType === "local" || storageType === "session")) {
-      try {
-        const json = JSON.stringify(value);
-        storageEngines[storageType].set(`${STORAGE_KEY}:${key}_custom`, json);
-      } catch (e) {
-        console.error(`SM Error al guardar custom ${key}`, e);
-      }
+      this.customStorage[storageType][key] = value;
+      this.saveCustomStore(storageType);
     }
-    // Evento reactivo
+
+    // 3. Eventos reactivos
     emitEvent(`custom:${key}:changed`, value);
-    emitEvent('custom:changed', this.state);
+    emitEvent('custom:changed', this.custom);
+  }
+
+  saveCustomStore(type) {
+    try {
+      const json = JSON.stringify(this.customStorage[type]);
+      storageEngines[type].set(`${STORAGE_KEY}:custom_store:${type}`, json);
+    } catch (e) {
+      console.error(`SM Error al guardar custom_store:${type}`, e);
+    }
   }
 
   markAssignmentComplete(assignmentName, key = "submissionstatus", value = "submitted") {
-    let list = this.state.assignments;
-
-    if (!Array.isArray(list)) {
-      console.warn("Assignments no es array en memoria. Normalizando.");
-      list = [];
-    }
-
-    const index = list.findIndex(a => a.name === assignmentName);
+    const currentList = Array.isArray(this.state.assignments) ? this.state.assignments : [];
+    
+    // Encontrar índice
+    const index = currentList.findIndex(a => a.name === assignmentName);
+    
+    let newList;
 
     if (index === -1) {
-      list.push({
-        id: assignmentName,
-        name: assignmentName,
-        [key]: value
-      });
+      // Agregar nuevo (inmutable)
+      newList = [
+        ...currentList,
+        {
+          id: assignmentName,
+          name: assignmentName,
+          [key]: value
+        }
+      ];
     } else {
-      list[index][key] = value;
+      // Actualizar existente (inmutable)
+      newList = currentList.map((item, i) => {
+        if (i === index) {
+          return { ...item, [key]: value };
+        }
+        return item;
+      });
     }
 
-    this.state.assignments = list;
+    this.state.assignments = newList;
     this.save("assignments");
 
-    emitEvent("state:assignments:changed", list);
+    emitEvent("state:assignments:changed", newList);
   }
 
   save(key) {
@@ -125,6 +145,7 @@ class StateManager {
   }
 
   load() {
+    // 1. Cargar estado base
     Object.keys(this.state).forEach((key) => {
       const engine = PERSISTENCE_MAP[key];
       if (!engine) return;
@@ -140,42 +161,32 @@ class StateManager {
       }
     });
 
-    // Normalización final para evitar strings accidentales
-    if (typeof this.state.assignments === "string") {
-      try {
-        this.state.assignments = JSON.parse(this.state.assignments);
-      } catch {
-        this.state.assignments = [];
-      }
-    }
-
+    // Normalización de assignments
     if (!Array.isArray(this.state.assignments)) {
       this.state.assignments = [];
     }
   
-    // ---------------------------------------
-    // Cargar custom state persistido
-    // ---------------------------------------
+    // 2. Cargar custom stores (Optimizado)
     ["local", "session"].forEach((type) => {
-      const nativeStorage = type === "local" ? localStorage : sessionStorage;
-      
-      for (let i = 0; i < nativeStorage.length; i++) {
-        const storageKey = nativeStorage.key(i);
-        if (!storageKey || !storageKey.startsWith(STORAGE_KEY)) continue;
-        if (!storageKey.endsWith("_custom")) continue;
-  
-        try {
-          const raw = nativeStorage.getItem(storageKey);
+      try {
+        const raw = storageEngines[type].get(`${STORAGE_KEY}:custom_store:${type}`);
+        if (raw) {
           const parsed = JSON.parse(raw);
-          const keyName = storageKey
-            .replace(`${STORAGE_KEY}:`, "")
-            .replace("_custom", "");
-          this.custom[keyName] = parsed;
-        } catch (e) {
-          console.warn("SM Warning al cargar custom", storageKey, e);
+          this.customStorage[type] = parsed || {};
+        } else {
+          this.customStorage[type] = {};
         }
+      } catch (e) {
+        console.warn(`SM Warning al cargar custom_store:${type}`, e);
+        this.customStorage[type] = {};
       }
     });
+
+    // 3. Reconstruir vista unificada
+    this.custom = {
+      ...this.customStorage.local,
+      ...this.customStorage.session
+    };
   }
 }
 
