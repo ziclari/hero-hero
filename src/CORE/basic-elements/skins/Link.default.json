@@ -1,8 +1,0 @@
-{
-    "wrapper": "a",
-    "className": "underline text-blue-600 hover:text-blue-800 cursor-pointer",
-    "wrapperProps": {},
-    "beforeText": "",
-    "afterText": ""
-  }
-  
