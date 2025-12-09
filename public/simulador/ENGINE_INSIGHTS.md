@@ -53,3 +53,41 @@ Used in `time-loop` and `haunted-mansion`. Paths are visible but locked until a 
 2.  **Use `goto_id` for Prototyping**: It's faster to iterate in a single file. Split into multiple files only when complexity grows.
 3.  **Theme Early**: A good CSS file sets the mood immediately and inspires the content.
 4.  **Debug with Text**: Temporarily display variable values on screen (e.g., `{{ custom.debug_var }}`) to verify logic during development.
+
+Análisis del Codebase
+Opinión General
+El proyecto es un simulador basado en configuración (YAML) construido con React y Vite. La arquitectura es interesante y flexible, separando la lógica de presentación (React) de la lógica de negocio/narrativa (YAML). Esto permite crear diferentes escenarios o cursos sin tocar el código fuente, lo cual es un patrón de diseño potente para este tipo de aplicaciones (Data-Driven Development).
+
+El código está bien organizado en módulos (auth, render, managers, resources), lo que facilita la navegabilidad. El uso de framer-motion para animaciones y stateManager para la persistencia demuestra atención a la experiencia de usuario.
+
+Cómo Funciona
+Inicialización (
+App.jsx
+):
+
+Carga un manifest.yaml que define la configuración global.
+Verifica parámetros de URL (integración con Moodle).
+Carga estilos dinámicos (skins).
+Determina la escena inicial y renderiza 
+SceneRenderer
+.
+Renderizado (SceneRenderer.jsx):
+
+Es el componente principal que orquesta la visualización.
+Utiliza 
+useSceneLoader
+ para cargar y parsear los archivos YAML de las escenas.
+Renderiza el fondo y los elementos (GroupElement) del slide actual.
+Escucha eventos del stateManager para actualizar la UI.
+Lógica y Control (
+UIController.js
+):
+
+Es el cerebro que ejecuta las acciones definidas en el YAML (navegación, reproducción de medios, cambios de estado).
+Evalúa condiciones (visible_if, enabled_if) para mostrar/ocultar elementos dinámicamente.
+Gestión de Estado (
+stateManager.js
+):
+
+Mantiene el estado de la sesión (slide actual, puntaje, variables personalizadas).
+Persiste datos en localStorage o sessionStorage para que el progreso no se pierda al recargar.

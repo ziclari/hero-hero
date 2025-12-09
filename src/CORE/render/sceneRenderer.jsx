@@ -52,7 +52,7 @@ export default function SceneRenderer({ initialScene }) {
 
   const slide = scene?.slides?.[slideIndex];
   const videoData = videoId ? scene?.assets?.videos?.[videoId] : null;
-
+  console.log(scene)
   // ---------------------------------------
   // 3. Manejar acciones de elementos
   // ---------------------------------------

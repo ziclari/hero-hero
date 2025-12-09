@@ -212,18 +212,23 @@ export const UIController = {
     setCustomVariable(arg) {
         if (!arg) return;
 
-        // Forma: custom.set_persistent: key,local,true
-        //        custom.set_persistent: key,session,{"x":2}
         const parts = arg.toString().split(/[:,]/).map(p => p.trim());
         const key = parts[0];
-        const storageType = parts[1];  // local o session
-        const rawValue = parts.slice(2).join(":");
 
-        if (!["local", "session"].includes(storageType)) {
-            console.warn("storageType inválido en custom.set_persistent:", storageType);
-            return;
+        // Default
+        let storageType = "local";
+        let rawValue = null;
+
+        // Si parts[1] es local/session → usarlo
+        if (parts[1] === "local" || parts[1] === "session") {
+            storageType = parts[1];
+            rawValue = parts.slice(2).join(":");
+        } else {
+            // Si no lo es → value directo
+            rawValue = parts.slice(1).join(":");
         }
 
+        // Convertir rawValue
         let value = rawValue;
 
         if (rawValue === "true") value = true;
@@ -333,40 +338,48 @@ export const UIController = {
     // Itera elementos de escena y aplica visible_if
     applyVisibilityRules(scene) {
         if (!scene) return;
-        // Si la escena usa slides
-        let elements = [];
-        if (Array.isArray(scene.slides)) {
-            // Obtén el slide activo
-            const idx = stateManager.get("slideIndex") || 0;
-            const slide = scene.slides[idx];
-            if (!slide) return;
-            elements = slide.elements || [];
-        } else {
-            // Escena tradicional sin slides
-            elements = scene.elements || [];
-        }
-    
-        for (const el of elements) {
-            if (!el.id) continue;
-            const vid = el.visible_if || el.visibleIf || el.visibleIfCondition;
-            if (vid) {
-                const visible = this.evaluateCondition(vid);
-                if (visible) this.showElement(el.id);
-                else this.hideElement(el.id);
+
+        const getElements = (scene) => {
+            if (Array.isArray(scene.slides)) {
+                const idx = stateManager.get("slideIndex") || 0;
+                const slide = scene.slides[idx];
+                return slide?.elements || [];
             }
-    
+            return scene.elements || [];
+        };
+
+        const processElement = (el) => {
+            if (!el) return;
+            // visible_if
+            const vid = el.visible_if || el.visibleIf || el.visibleIfCondition;
+            if (vid && el.id) {
+                const visible = this.evaluateCondition(vid);
+                visible ? this.showElement(el.id) : this.hideElement(el.id);
+            }
+
+            // enabled_if
             const enableExpr = el.enabled_if || el.enabledIf;
-            if (enableExpr) {
+            if (enableExpr && el.id) {
                 const enabled = this.evaluateCondition(enableExpr);
-                console.log(enabled)
                 const current = stateManager.get("activeElements") || {};
                 stateManager.set("activeElements", {
                     ...current,
                     [el.id]: { ...(current[el.id] || {}), enabled }
                 });
             }
+
+            // Si tiene hijos, procesarlos también
+            if (Array.isArray(el.elements)) {
+                for (const child of el.elements) {
+                    processElement(child);
+                }
+            }
+        };
+        const elements = getElements(scene);
+        for (const el of elements) {
+            processElement(el);
         }
-    },    
+    },  
 
     // ---------------------------------------
     // ACTION DISPATCHER
