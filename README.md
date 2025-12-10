@@ -9,7 +9,7 @@ docker start contenedor-react
 
 http://localhost:8080
 
-http://localhost:8080/simulador/corp-espionage
-http://localhost:8080/simulador/electroconexiones
-http://localhost:8080/simulador/haunted-mansion
-http://localhost:8080/simulador/neon-detective
+http://localhost:8080/corp-espionage
+http://localhost:8080/electroconexiones
+http://localhost:8080/haunted-mansion
+http://localhost:8080/neon-detective
