@@ -1,14 +1,10 @@
-docker build -t mi-react-app --build-arg VITE_API_URL="https://mi-api.com" .
+sudo docker build -t simulador-app  .  
 
-docker build -t simulador-app .
+sudo docker run -d --name simuladores --network general-network simulador-app:latest
 
-docker run -d -p 8080:80 --name simulador simulador-app
-docker run -d --name simulador \
-  --network general-ebc-network \
-  simulador-app
-
-docker stop simulador
-docker start simulador
+docker stop simuladores
+docker start simuladores
+sudo docker rmi simulador-app:latest  
 
 http://localhost:8080
 
