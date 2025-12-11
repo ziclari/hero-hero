@@ -21,4 +21,5 @@ COPY --from=build /app/dist ./dist
 # Instalas el servidor estático minimalista
 RUN npm install -g serve
 
-CMD ["serve", "-s", "dist", "-l", "4173"]
+EXPOSE 80
+CMD ["serve", "-s", "dist", "-l", "80"]
