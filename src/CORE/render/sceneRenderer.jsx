@@ -146,7 +146,7 @@ export default function SceneRenderer({ initialScene }) {
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
-              {...(animations[slide?.animate] || animations.fade)}
+              {...(animations[slide?.animate] || animations.none)}
             >
             <GroupElement
               elements={slide.elements}
